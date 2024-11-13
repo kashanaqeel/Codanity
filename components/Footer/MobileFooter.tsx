@@ -19,10 +19,6 @@ export const MobileFooter: FC<FooterProps> = ({
       </div>
       <div className="flex flex-row justify-between w-full">
         <NavigationLinks navigations={navigations} />
-        <NavigationLinks navigations={otherNavigations} />
-      </div>
-      <div className="px-8">
-        <RequestInvite />
       </div>
       <Copyright />
     </div>
