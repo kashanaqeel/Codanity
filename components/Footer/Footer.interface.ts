@@ -8,6 +8,7 @@ export type Social = {
   id: string;
   title: string;
   icon: string;
+  url: string;
 };
 
 export type Navigation = {

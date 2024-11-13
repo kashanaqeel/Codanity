@@ -4,12 +4,10 @@ import { Logo } from "./Footer";
 import { FooterProps } from "./Footer.interface";
 import { NavigationLinks } from "./NavigationLinks";
 import { SocialProfiles } from "./SocialProfiles";
-import { RequestInvite } from "../Button";
 
 export const DesktopFooter: FC<FooterProps> = ({
   socials,
   navigations,
-  otherNavigations,
 }) => {
   return (
     <div className="grid-cols-4 max-w-6xl mx-auto px-8 text-white hidden lg:grid">
@@ -17,10 +15,11 @@ export const DesktopFooter: FC<FooterProps> = ({
         <Logo />
         <SocialProfiles socials={socials} />
       </div>
+      <div className="flex flex-col items-center justify-center">
       <NavigationLinks navigations={navigations} />
-      <NavigationLinks navigations={otherNavigations} />
-      <div className="flex flex-col justify-between items-end">
-        <RequestInvite />
+      </div>
+     
+      <div className="flex flex-col items-end">
         <Copyright />
       </div>
     </div>
