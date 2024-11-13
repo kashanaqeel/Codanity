@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <Head>
         <title>Codanity</title>
-        <meta name="description" content="Next generation digital banking" />
+        <meta name="description" content="Transforming Visions into Innovations" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main className="min-h-screen">
