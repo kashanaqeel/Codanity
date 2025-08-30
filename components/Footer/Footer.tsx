@@ -1,25 +1,30 @@
 import React, { FC } from "react";
 import Image from "next/image";
-import { FooterProps } from "./Footer.interface";
 import { DesktopFooter } from "./DesktopFooter";
 import { MobileFooter } from "./MobileFooter";
 
-export const Logo = () => {
-  return (
-    <div className="flex items-center">
-      <Image src="/codanity-logo-white.svg" alt="logo" height={32} width={32} />
-      <span className="text-2xl font-bold font-mono text-white">Codanity</span>
-    </div>
-  );
+export type Social = {
+  id: string;
+  title: string;
+  icon: string;
+  url: string;
 };
 
-export const Footer: FC<FooterProps> = ({
-  navigations,
-  otherNavigations,
-  socials,
-}) => {
+export type Navigation = {
+  id: string;
+  title: string;
+  url: string;
+};
+
+export interface FooterProps {
+  socials: Social[];
+  navigations: Navigation[];
+  otherNavigations: Navigation[];
+}
+
+export const Footer: FC<FooterProps> = ({ socials, navigations, otherNavigations }) => {
   return (
-    <div className="bg-[#5128a0] py-16 h-full">
+    <footer className="bg-[#1f2937] text-white">
       <DesktopFooter
         socials={socials}
         navigations={navigations}
@@ -30,6 +35,19 @@ export const Footer: FC<FooterProps> = ({
         navigations={navigations}
         otherNavigations={otherNavigations}
       />
-    </div>
+    </footer>
   );
 };
+
+// Logo component
+export const Logo: FC = () => (
+  <div className="flex items-center">
+    <Image
+      src="/codanity-logo-white.svg"
+      alt="Codanity Logo"
+      width={120}
+      height={32}
+      className="h-8 w-auto"
+    />
+  </div>
+);

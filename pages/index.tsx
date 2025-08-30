@@ -1,10 +1,11 @@
+import React from "react";
 import Head from "next/head";
-import { Navbar } from "@/components/Navbar";
 import {
   features,
 } from "@/data";
-import { Hero } from "@/components/Hero";
+import Hero from "@/components/Hero";
 import { Features } from "@/components/Features";
+import FeaturedProjects from "@/components/FeaturedProjects";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <main className="min-h-screen">
         <Hero />
         <Features features={features} />
+        <FeaturedProjects />
       </main>
     </>
   );
