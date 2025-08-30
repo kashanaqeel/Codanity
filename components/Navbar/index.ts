@@ -1,2 +1,2 @@
 export { Navbar } from "./Navbar";
-export * from "./Navbar.interface";
+// Types are now exported from @/types

@@ -1,6 +1,5 @@
-import { Feature } from "@/components/Features/Features.interface";
-import { Social } from "@/components/Footer/Footer.interface";
-import type { Navigation } from "@/components/Navbar";
+import type { Feature } from "@/components/Features/Feature";
+import type { Social, Navigation } from "@/components/Footer/Footer";
 
 export const navigations: Navigation[] = [
   {
@@ -11,7 +10,7 @@ export const navigations: Navigation[] = [
   {
     id: "2",
     title: "Portfolio",
-    url: "#",
+    url: "/projects",
   },
   {
     id: "3",
@@ -45,7 +44,7 @@ export const features: Feature[] = [
     icon: "/icon-django.svg",
     title: "Robust Django Backends",
     description:
-      "Codanity leverages Django’s security and scalability to build dependable backend solutions, perfect for data-intensive applications.",
+      "Codanity leverages Django's security and scalability to build dependable backend solutions, perfect for data-intensive applications.",
   },
   {
     id: "4",
@@ -61,29 +60,24 @@ export const socials: Social[] = [
     id: "1",
     icon: "/icon-facebook.svg",
     title: "Facebook",
-    url: ""
+    url: "https://www.facebook.com/codanityco"
   },
   {
     id: "2",
-    icon: "/icon-twitter.svg",
-    title: "Twitter",
-    url: ""
+    icon: "/icon-linkedin.svg",
+    title: "LinkedIn",
+    url: "https://www.linkedin.com/company/codanity"
   },
-  // {
-  //   id: "3",
-  //   icon: "/icon-pinterest.svg",
-  //   title: "Pinterest",
-  // },
+  {
+    id: "3",
+    icon: "/icon-instagram.svg",
+    title: "Instagram",
+    url: "https://www.instagram.com/codanityco"
+  },
   {
     id: "4",
     icon: "/icon-youtube.svg",
     title: "YouTube",
-    url: ""
-  },
-  {
-    id: "5",
-    icon: "/icon-instagram.svg",
-    title: "Instagram",
     url: ""
   },
 ];

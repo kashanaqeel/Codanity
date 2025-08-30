@@ -1,6 +1,10 @@
 import React, { FC } from "react";
-import { NavbarLinksProps, Navigation } from "./Navbar.interface";
 import Link from "next/link";
+import type { Navigation } from "./Navbar";
+
+export interface NavbarLinksProps {
+  navigations: Navigation[];
+}
 
 export const NavigationLinksDesktop: FC<NavbarLinksProps> = ({
   navigations,
@@ -24,12 +28,12 @@ export const NavigationLinksMobile: FC<NavbarLinksProps> = ({
   navigations,
 }) => {
   return (
-    <div className="absolute top-16 w-full py-8 rounded-md bg-white">
-      <ul className="flex flex-col items-center gap-6">
+    <div className="w-full py-4">
+      <ul className="flex flex-col items-center gap-4">
         {navigations?.map((navlink) => {
           return (
             <Link key={navlink.id} href={navlink.url}>
-              <li className="text-gray-800 text-base">{navlink.title}</li>
+              <li className="text-gray-800 text-base hover:text-[#5128a0] transition-colors">{navlink.title}</li>
             </Link>
           );
         })}

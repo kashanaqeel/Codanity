@@ -1,17 +1,23 @@
 import Link from "next/link";
-import { FC } from "react";
-import { NavigationProps } from "./Footer.interface";
+import React, { FC } from "react";
+import type { Navigation } from "./Footer";
+
+export interface NavigationProps {
+  navigations: Navigation[];
+}
 
 export const NavigationLinks: FC<NavigationProps> = ({ navigations }) => {
   return (
-    <ul className="flex flex-col items-start justify-center gap-2">
-      {navigations?.map((navigation) => {
-        return (
-          <Link key={navigation.id} href={navigation.url}>
-            <li className="text-sm text-gray-300">{navigation.title}</li>
-          </Link>
-        );
-      })}
-    </ul>
+    <nav className="flex flex-col space-y-2">
+      {navigations.map((nav) => (
+        <Link
+          key={nav.id}
+          href={nav.url}
+          className="text-gray-300 hover:text-white transition-colors text-sm"
+        >
+          {nav.title}
+        </Link>
+      ))}
+    </nav>
   );
 };
