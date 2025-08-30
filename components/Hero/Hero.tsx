@@ -1,19 +1,9 @@
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { ArrowRight, Database, Layout, Smartphone, Globe, LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
 import { useSpring, animated, useTrail, config } from "@react-spring/web";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/effect-fade';
-
-interface TechStackIconProps {
-  Icon: LucideIcon;
-  label: string;
-  index?: number;
-}
 
 interface CTAButtonProps {
   children: React.ReactNode;
@@ -70,47 +60,6 @@ const STATS: StatItemProps[] = [
 ];
 
 // Components
-const TechStackIcon: React.FC<TechStackIconProps> = ({ Icon, label, index = 0 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  
-  // Create smooth breathing/pulsing effect with gentle sway
-  const breathingSpring = useSpring({
-    from: { scale: 1, x: 0, opacity: 0.9 },
-    to: async (next) => {
-      while (true) {
-        // Gentle breath in - scale up and slight movement
-        await next({ scale: 1.05, x: -1, opacity: 1 });
-        await new Promise(resolve => setTimeout(resolve, 1200 + index * 150));
-        // Gentle breath out - scale down and return
-        await next({ scale: 1, x: 0, opacity: 0.9 });
-        await new Promise(resolve => setTimeout(resolve, 1200 + index * 150));
-        // Subtle sway to the right
-        await next({ scale: 1.03, x: 1, opacity: 0.95 });
-        await new Promise(resolve => setTimeout(resolve, 1200 + index * 150));
-        // Return to center
-        await next({ scale: 1, x: 0, opacity: 0.9 });
-        await new Promise(resolve => setTimeout(resolve, 1200 + index * 150));
-      }
-    },
-    config: config.gentle,
-    loop: true,
-  });
-
-  return (
-    <animated.div 
-      className="flex flex-col items-center gap-3 min-w-[90px] sm:min-w-[100px]"
-      style={breathingSpring}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="p-3 bg-[#5128a0] rounded-xl shadow-lg">
-        <Icon className="w-6 h-6 text-white" />
-      </div>
-      <span className="text-xs sm:text-sm text-gray-600 text-center font-medium">{label}</span>
-    </animated.div>
-  );
-};
-
 const TechStackCard: React.FC<TechStackCardProps> = ({ Icon, title, description, index = 0 }) => {
   const [isHovered, setIsHovered] = useState(false);
   
@@ -242,94 +191,8 @@ const HeroImageDesktop: React.FC = () => {
 };
 
 const HeroImageMobile: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div className="w-full lg:hidden px-4 sm:px-6" ref={containerRef}>
-      <div className="relative overflow-hidden">
-        <Swiper
-          modules={[Autoplay, EffectFade]}
-          spaceBetween={12}
-          slidesPerView="auto"
-          loop={true}
-          autoplay={{
-            delay: 0,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
-          speed={2000}
-          allowTouchMove={false}
-          className="tech-stack-swiper"
-        >
-          {TECH_STACKS.map((stack, index) => (
-            <SwiperSlide key={index} style={{ width: 'auto' }}>
-              <TechStackIcon
-                Icon={stack.icon}
-                label={stack.label}
-                index={index}
-              />
-            </SwiperSlide>
-          ))}
-          {/* Multiple duplicate sets for seamless infinite loop */}
-          {TECH_STACKS.map((stack, index) => (
-            <SwiperSlide key={`duplicate-1-${index}`} style={{ width: 'auto' }}>
-              <TechStackIcon
-                Icon={stack.icon}
-                label={stack.label}
-                index={index}
-              />
-            </SwiperSlide>
-          ))}
-          {TECH_STACKS.map((stack, index) => (
-            <SwiperSlide key={`duplicate-2-${index}`} style={{ width: 'auto' }}>
-              <TechStackIcon
-                Icon={stack.icon}
-                label={stack.label}
-                index={index}
-              />
-            </SwiperSlide>
-          ))}
-          {TECH_STACKS.map((stack, index) => (
-            <SwiperSlide key={`duplicate-3-${index}`} style={{ width: 'auto' }}>
-              <TechStackIcon
-                Icon={stack.icon}
-                label={stack.label}
-                index={index}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        
-        {/* Custom styles for better infinite scroll */}
-        <style jsx global>{`
-          .tech-stack-swiper .swiper-wrapper {
-            transition-timing-function: linear !important;
-          }
-          .tech-stack-swiper .swiper-slide {
-            width: auto !important;
-          }
-        `}</style>
-      </div>
-    </div>
-  );
+  // Mobile view no longer shows tech stacks
+  return null;
 };
 
 const CTAButton: React.FC<CTAButtonProps> = ({ children, primary = false, onClick }) => (
@@ -348,7 +211,7 @@ const CTAButton: React.FC<CTAButtonProps> = ({ children, primary = false, onClic
 
 export const Hero: React.FC = () => {
   return (
-    <div className="bg-white w-full h-screen">
+    <div className="bg-white w-full min-h-[calc(100vh-4rem)] pt-8 lg:pt-12">
       <div className="min-h-[calc(100vh-4rem)] flex flex-col-reverse lg:flex-row items-center justify-center max-w-6xl mx-auto gap-6 sm:gap-8 md:gap-12 lg:gap-16 px-4 sm:px-6 lg:px-8 py-8 lg:py-0">
         <motion.div 
           className="w-full lg:w-1/2 flex flex-col gap-4 sm:gap-6 text-center lg:text-start"
@@ -426,7 +289,6 @@ export const Hero: React.FC = () => {
           </motion.div>
         </motion.div>
         
-        <HeroImageMobile />
         <HeroImageDesktop />
       </div>
     </div>
