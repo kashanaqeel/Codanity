@@ -378,7 +378,7 @@ const ServicesPage: React.FC = () => {
           >
             <Link href="/contacts">
               <motion.button
-                className="bg-white text-[#5128a0] px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="bg-white text-[#5128a0] px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -387,7 +387,7 @@ const ServicesPage: React.FC = () => {
             </Link>
             <Link href="/projects">
               <motion.button
-                className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-[#5128a0] transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="border-2 border-white text-white px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-white hover:text-[#5128a0] transition-all duration-300 shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

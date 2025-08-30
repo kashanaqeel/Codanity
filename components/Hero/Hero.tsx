@@ -271,22 +271,6 @@ export const Hero: React.FC = () => {
               </CTAButton>
             </Link>
           </motion.div>
-          
-          <motion.div 
-            className="flex items-center justify-center lg:justify-start gap-6 sm:gap-8 pt-6 sm:pt-8"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.25 }}
-          >
-            {STATS.map((stat, index) => (
-              <StatItem
-                key={index}
-                value={stat.value}
-                label={stat.label}
-                suffix={stat.suffix}
-              />
-            ))}
-          </motion.div>
         </motion.div>
         
         <HeroImageDesktop />

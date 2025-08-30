@@ -3,6 +3,7 @@ import { Feature, type Feature as FeatureType } from "./Feature";
 import { motion } from "framer-motion";
 import { useAnimation } from "@/hooks";
 import { Section } from "@/components";
+import CountUp from "react-countup";
 
 export interface FeaturesProps {
   features: FeatureType[];
@@ -18,33 +19,6 @@ export const Features: FC<FeaturesProps> = ({ features }) => {
         className="flex flex-col items-center text-center gap-8 mt-8 lg:mt-14 relative"
         {...fadeInUp()}
       >
-        {/* Background decorative elements */}
-        <motion.div 
-          className="absolute -top-4 -left-4 w-20 h-20 bg-gradient-to-br from-[#5128a0]/10 to-transparent rounded-full blur-xl"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3]
-          }}
-          transition={{ 
-            duration: 4, 
-            repeat: Infinity, 
-            ease: "easeInOut" 
-          }}
-        />
-        <motion.div 
-          className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-bl from-blue-400/20 to-transparent rounded-full blur-lg"
-          animate={{ 
-            scale: [1, 1.3, 1],
-            opacity: [0.2, 0.5, 0.2]
-          }}
-          transition={{ 
-            duration: 5, 
-            repeat: Infinity, 
-            ease: "easeInOut",
-            delay: 1
-          }}
-        />
-        
         <motion.div 
           className="inline-flex items-center gap-2 bg-gradient-to-r from-[#5128a0]/10 to-blue-500/10 text-[#5128a0] px-4 py-2 rounded-full text-sm font-medium border border-[#5128a0]/20"
           initial={{ opacity: 0, y: 20 }}
@@ -82,19 +56,55 @@ export const Features: FC<FeaturesProps> = ({ features }) => {
           transition={{ duration: 0.5, delay: 0.3 }}
         >
           <div className="text-center">
-            <div className="text-2xl font-bold text-[#5128a0]">5+</div>
+            <div className="text-2xl font-bold text-[#5128a0]">
+              <CountUp
+                end={5}
+                suffix="+"
+                duration={2.5}
+                delay={0.5}
+                enableScrollSpy={true}
+                scrollSpyOnce={true}
+              />
+            </div>
             <div className="text-sm text-gray-500">Years Experience</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-[#5128a0]">20+</div>
+            <div className="text-2xl font-bold text-[#5128a0]">
+              <CountUp
+                end={20}
+                suffix="+"
+                duration={2.5}
+                delay={0.5}
+                enableScrollSpy={true}
+                scrollSpyOnce={true}
+              />
+            </div>
             <div className="text-sm text-gray-500">Projects Delivered</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-[#5128a0]">94%</div>
+            <div className="text-2xl font-bold text-[#5128a0]">
+              <CountUp
+                end={94}
+                suffix="%"
+                duration={2.5}
+                delay={0.5}
+                enableScrollSpy={true}
+                scrollSpyOnce={true}
+              />
+            </div>
             <div className="text-sm text-gray-500">Client Satisfaction</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-[#5128a0]">24/7</div>
+            <div className="text-2xl font-bold text-[#5128a0]">
+              <CountUp
+                end={24}
+                suffix="/7"
+                duration={2.5}
+                delay={0.5}
+                enableScrollSpy={true}
+                scrollSpyOnce={true}
+              />
+            </div>
             <div className="text-sm text-gray-500">Support Available</div>
           </div>
         </motion.div>
