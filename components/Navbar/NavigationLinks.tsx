@@ -24,15 +24,20 @@ export const NavigationLinksDesktop: FC<NavbarLinksProps> = ({
   );
 };
 
-export const NavigationLinksMobile: FC<NavbarLinksProps> = ({
+export interface NavigationLinksMobileProps extends NavbarLinksProps {
+  onLinkClick: () => void;
+}
+
+export const NavigationLinksMobile: FC<NavigationLinksMobileProps> = ({
   navigations,
+  onLinkClick,
 }) => {
   return (
     <div className="w-full py-4">
       <ul className="flex flex-col items-center gap-4">
         {navigations?.map((navlink) => {
           return (
-            <Link key={navlink.id} href={navlink.url}>
+            <Link key={navlink.id} href={navlink.url} onClick={onLinkClick}>
               <li className="text-gray-800 text-base hover:text-[#5128a0] transition-colors">{navlink.title}</li>
             </Link>
           );

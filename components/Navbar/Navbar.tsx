@@ -81,10 +81,14 @@ export const Navbar: FC<NavbarProps> = ({ navigations }) => {
             className="md:hidden absolute top-16 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40"
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <NavigationLinksMobile navigations={navigations} />
+              <NavigationLinksMobile 
+                navigations={navigations} 
+                onLinkClick={() => setIsOpen(false)}
+              />
               <div className="pt-4">
                 <Link
                   href="/contacts"
+                  onClick={() => setIsOpen(false)}
                   className="block w-full text-center bg-[#5128a0] text-white px-6 py-2 rounded-lg hover:bg-[#3e217e] transition-colors"
                 >
                   Contact
