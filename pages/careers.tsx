@@ -255,7 +255,7 @@ const CareersPage: React.FC = () => {
 
                 <a href="mailto:codanityco@gmail.com?subject=Resume Submission - Codanity Careers&body=Hi Codanity Team,%0D%0A%0D%0AI'm interested in joining your team and would like to submit my resume for future opportunities.%0D%0A%0D%0APlease find my resume attached.%0D%0A%0D%0ABest regards,%0D%0A[Your Name]">
                   <motion.button
-                    className="bg-gradient-to-r from-[#5128a0] to-[#6b46c1] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-[#3e217e] hover:to-[#553c9a] transition-all duration-300 transform hover:scale-105"
+                    className="bg-gradient-to-r from-[#5128a0] to-[#6b46c1] text-white px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-xl font-semibold text-base sm:text-lg hover:from-[#3e217e] hover:to-[#553c9a] transition-all duration-300 transform hover:scale-105"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -327,7 +327,7 @@ const CareersPage: React.FC = () => {
           >
             <a href="mailto:codanityco@gmail.com?subject=Resume Submission - Codanity Careers">
               <motion.button
-                className="bg-white text-[#5128a0] px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="bg-white text-[#5128a0] px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -336,7 +336,7 @@ const CareersPage: React.FC = () => {
             </a>
             <Link href="/aboutUs">
               <motion.button
-                className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-[#5128a0] transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="border-2 border-white text-white px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-white hover:text-[#5128a0] transition-all duration-300 shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
