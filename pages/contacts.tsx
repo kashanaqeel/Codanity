@@ -186,8 +186,8 @@ const ContactPage: React.FC = () => {
               <div>
                 <h3 className="text-lg font-medium text-gray-900">Website</h3>
                 <p className="mt-1 text-gray-600">Visit our online presence</p>
-                <a href="https://codanity.vercel.app" target="_blank" rel="noopener noreferrer" className="mt-1 text-[#5128a0] hover:underline font-medium">
-                  codanity.vercel.app
+                <a href="https://codanityco.com/" target="_blank" rel="noopener noreferrer" className="mt-1 text-[#5128a0] hover:underline font-medium">
+                  codanityco.com
                 </a>
               </div>
             </motion.div>

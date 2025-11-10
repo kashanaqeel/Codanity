@@ -300,8 +300,8 @@ const AboutUsPage: React.FC = () => {
                 <a href="mailto:codanityco@gmail.com" className="text-white hover:text-blue-200 transition-colors">
                   📧 codanityco@gmail.com
                 </a>
-                <a href="https://codanity.vercel.app" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-200 transition-colors">
-                  🌐 codanity.vercel.app
+                <a href="https://codanityco.com/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-200 transition-colors">
+                  🌐 codanityco.com
                 </a>
               </div>
             </div>
