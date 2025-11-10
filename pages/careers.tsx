@@ -312,8 +312,8 @@ const CareersPage: React.FC = () => {
             </div>
             <div className="text-center">
               <div className="text-purple-200 text-sm mb-2">Visit our website</div>
-              <a href="https://codanity.vercel.app" target="_blank" rel="noopener noreferrer" className="text-white hover:text-purple-200 transition-colors">
-                codanity.vercel.app
+              <a href="https://codanityco.com/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-purple-200 transition-colors">
+                codanityco.com
               </a>
             </div>
           </motion.div>
