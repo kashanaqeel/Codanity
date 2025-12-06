@@ -18,7 +18,7 @@ const contactFormSchema = z.object({
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
 const ContactPage: React.FC = () => {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<ContactFormData>({
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
   });
 
@@ -26,6 +26,7 @@ const ContactPage: React.FC = () => {
     try {
       await sendContactForm(data);
       toast.success("Message sent successfully!");
+      reset();
     } catch (error) {
       toast.error("Failed to send message. Please try again.");
     }
@@ -141,8 +142,8 @@ const ContactPage: React.FC = () => {
               </div>
               <div>
                 <h3 className="text-lg font-medium text-gray-900">Phone</h3>
-                <p className="mt-1 text-gray-600">Mon-Fri from 9am to 10pm</p>
-                <p className="mt-1 text-[#5128a0] font-medium">+923204464408</p>
+                <p className="mt-1 text-[#5128a0] font-medium">+447379335426 - UK</p>
+                <p className="mt-1 text-[#5128a0] font-medium">+923204464408 - Pakistan</p>
               </div>
             </motion.div>
             
@@ -171,7 +172,10 @@ const ContactPage: React.FC = () => {
               </div>
               <div>
                 <h3 className="text-lg font-medium text-gray-900">Office</h3>
-                <p className="mt-1 text-gray-600">Johar Town Lahore, Pakistan.</p>
+                <ul className="mt-1 space-y-1 list-disc list-inside">
+                  <li className="text-gray-600">200 Eton Road IG1 2UN London, United Kingdom (HQ) - UK</li>
+                  <li className="text-gray-600">Johar Town, Lahore - Pakistan</li>
+                </ul>
               </div>
             </motion.div>
             

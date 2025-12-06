@@ -74,12 +74,12 @@ export const socials: Social[] = [
     title: "Instagram",
     url: "https://www.instagram.com/codanityco"
   },
-  {
-    id: "4",
-    icon: "/icon-youtube.svg",
-    title: "YouTube",
-    url: ""
-  },
+  // {
+  //   id: "4",
+  //   icon: "/icon-youtube.svg",
+  //   title: "YouTube",
+  //   url: ""
+  // },
 ];
 
 export const navs: Navigation[] = [
@@ -109,16 +109,6 @@ export const otherNavigations: Navigation[] = [
   {
     id: "1",
     title: "Careers",
-    url: "#",
-  },
-  {
-    id: "2",
-    title: "Community",
-    url: "#",
-  },
-  {
-    id: "3",
-    title: "Privacy Policy",
     url: "#",
   },
 ];
