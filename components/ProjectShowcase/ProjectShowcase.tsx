@@ -84,7 +84,7 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ pages, projectName })
 
   return (
     <>
-      <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,240px)_minmax(0,1fr)] lg:gap-8">
+      <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,220px)] lg:gap-6">
         {/* Main viewer — first on mobile */}
         <div className="order-1 min-w-0 space-y-4 lg:order-none">
           <div className="card-surface min-w-0 overflow-hidden">

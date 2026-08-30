@@ -43,7 +43,7 @@ export const NeuralGrid: React.FC = () => {
       {NODES.map((node, i) => (
         <motion.div
           key={i}
-          className="absolute h-1 w-1 rounded-full bg-violet-400"
+          className="absolute h-1 w-1 rounded-full bg-brand-light"
           style={{ left: `${node.x}%`, top: `${node.y}%` }}
           animate={{ opacity: [0.3, 0.9, 0.3], scale: [1, 1.5, 1] }}
           transition={{ duration: 2 + (i % 3), delay: i * 0.15, repeat: Infinity }}

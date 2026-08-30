@@ -8,7 +8,7 @@ export const PageTransition: React.FC<{ children: React.ReactNode }> = ({ childr
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={router.asPath}
+        key={router.pathname}
         className="min-w-0 max-w-full overflow-x-hidden"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}

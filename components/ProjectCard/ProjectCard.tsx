@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ExternalLink, Github, Calendar, Tag } from "lucide-react";
-import { formatDateRange, getProjectTypeColor, truncateTechStack } from "@/utils";
+import { formatDateRange, truncateTechStack } from "@/utils";
 import type { ProjectsInterface } from "@/types";
 
 export interface ProjectCardProps {
@@ -29,12 +29,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           className="h-full w-full object-cover transition-transform duration-500 ease-smooth group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-ink/5 to-transparent transition-opacity duration-300 group-hover:from-ink/60" />
-
-        <div className="absolute left-4 top-4">
-          <span className={`rounded-full px-3 py-1 text-xs font-semibold ${getProjectTypeColor(project.type)}`}>
-            {project.type}
-          </span>
-        </div>
       </div>
 
       <div className="flex flex-1 flex-col p-6">

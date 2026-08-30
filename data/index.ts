@@ -42,9 +42,9 @@ export const features: Feature[] = [
     title: "Mobile & Web Products",
     description:
       "Responsive web apps and cross-platform mobile experiences designed for real users — fast, polished, and built to scale with your business.",
-    iconBg: "bg-indigo-50",
-    iconColor: "text-indigo-600",
-    iconHoverRing: "group-hover:ring-indigo-500/20 group-hover:bg-indigo-100",
+    iconBg: "bg-brand-muted",
+    iconColor: "text-brand",
+    iconHoverRing: "group-hover:ring-brand/20 group-hover:bg-brand/10",
   },
   {
     id: "3",
@@ -62,9 +62,9 @@ export const features: Feature[] = [
     title: "AI & Automation",
     description:
       "When it fits the product, we integrate chatbots, voice agents, RAG knowledge bases, and intelligent workflows — grounded in your data and built for production.",
-    iconBg: "bg-violet-50",
-    iconColor: "text-violet-600",
-    iconHoverRing: "group-hover:ring-violet-500/20 group-hover:bg-violet-100",
+    iconBg: "bg-accent-muted",
+    iconColor: "text-accent-dark",
+    iconHoverRing: "group-hover:ring-accent/20 group-hover:bg-violet-100",
   },
 ];
 

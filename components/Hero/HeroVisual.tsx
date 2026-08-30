@@ -46,7 +46,7 @@ const CAPABILITIES: Capability[] = [
     icon: Bot,
     label: "AI Integration",
     description: "Chatbots, voice AI & automations",
-    gradient: "from-violet-500 to-purple-600",
+    gradient: "from-violet-600 to-indigo-700",
     isAI: true,
   },
 ];

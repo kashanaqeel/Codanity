@@ -18,6 +18,7 @@ import HomeCTA from "@/components/HomeCTA";
 import { Button } from "@/components";
 import { getProjectTypeColor } from "@/utils";
 import { useAnimation } from "@/hooks";
+import HeroBackdrop from "@/components/effects/HeroBackdrop";
 
 export default function ProjectDetailPage() {
   const router = useRouter();
@@ -60,13 +61,14 @@ export default function ProjectDetailPage() {
       </Head>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-hero-radial">
-        <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-40" />
+      <section className="page-hero-dark relative isolate overflow-hidden pb-12 sm:pb-16">
+        <HeroBackdrop intensity="strong" />
+
         <div className="relative mx-auto w-full min-w-0 max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-14">
           <motion.div {...fadeInUpSmall()}>
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-sm font-medium text-brand transition-colors hover:text-brand-dark"
+              className="inline-flex items-center gap-2 text-sm font-medium text-brand-light transition-colors hover:text-accent-light"
             >
               <ArrowLeft className="h-4 w-4" />
               Back to portfolio
@@ -89,10 +91,10 @@ export default function ProjectDetailPage() {
                 ))}
               </div>
 
-              <h1 className="break-words font-display text-2xl font-bold tracking-tight text-ink sm:text-4xl lg:text-5xl">
+              <h1 className="break-words font-display text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
                 {project.companyName}
               </h1>
-              <p className="break-words text-base leading-relaxed text-ink-secondary sm:text-lg">
+              <p className="break-words text-base leading-relaxed text-slate-400 sm:text-lg">
                 {project.shortDescription}
               </p>
 
@@ -138,58 +140,54 @@ export default function ProjectDetailPage() {
         </div>
       </section>
 
-      <div className="mx-auto w-full min-w-0 max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
-        <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,280px)_minmax(0,1fr)] lg:gap-10">
-          {/* Sticky sidebar — after showcase on mobile */}
-          <motion.aside className="order-2 min-w-0 lg:order-none lg:sticky lg:top-28 lg:self-start" {...fadeInUp(0.1)}>
-            <div className="card-surface space-y-5 p-5 sm:p-6">
-              <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-ink-muted">Timeline</p>
-                <div className="mt-2 flex flex-wrap items-start gap-2 text-sm leading-relaxed text-ink-secondary">
-                  <Calendar className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
-                  <span className="break-words">
-                    {formatDate(project.startDate)} – {formatDate(project.endDate)}
-                  </span>
-                </div>
-              </div>
-
-              <div>
-                <div className="mb-3 flex items-center gap-2">
-                  <Tag className="h-4 w-4 shrink-0 text-brand" />
-                  <p className="text-xs font-medium uppercase tracking-wider text-ink-muted">Tech Stack</p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {project.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-lg bg-surface-muted px-3 py-1.5 text-xs font-medium text-ink-secondary"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+      <div className="mx-auto w-full min-w-0 max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+        <motion.div className="card-surface mb-8 flex flex-col gap-5 p-5 sm:flex-row sm:flex-wrap sm:items-start sm:gap-x-10 sm:gap-y-4 sm:p-6" {...fadeInUp(0.1)}>
+          <div className="min-w-0 sm:flex-1">
+            <p className="text-xs font-medium uppercase tracking-wider text-ink-muted">Timeline</p>
+            <div className="mt-2 flex items-start gap-2 text-sm leading-relaxed text-ink-secondary">
+              <Calendar className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+              <span className="break-words">
+                {formatDate(project.startDate)} – {formatDate(project.endDate)}
+              </span>
             </div>
-          </motion.aside>
+          </div>
 
-          <div className="order-1 min-w-0 space-y-10 sm:space-y-12 lg:order-none">
-            {/* Interactive showcase */}
-            <motion.section className="min-w-0" {...fadeInUp(0.15)}>
-              <h2 className="font-display text-xl font-bold text-ink sm:text-2xl lg:text-3xl">Product showcase</h2>
-              <p className="mt-2 break-words text-sm text-ink-secondary sm:text-base">
-                Browse sections, navigate screenshots, and open fullscreen to explore the work in detail.
-              </p>
-              <div className="mt-6 sm:mt-8">
-                <ProjectShowcase
-                  key={project.id}
-                  pages={project.pagesInfoArr}
-                  projectName={project.companyName}
-                />
-              </div>
-            </motion.section>
+          <div className="min-w-0 sm:flex-[2]">
+            <div className="mb-3 flex items-center gap-2">
+              <Tag className="h-4 w-4 shrink-0 text-brand" />
+              <p className="text-xs font-medium uppercase tracking-wider text-ink-muted">Tech Stack</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {project.techStack.map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-lg bg-surface-muted px-3 py-1.5 text-xs font-medium text-ink-secondary"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </motion.div>
 
-            {/* Overview */}
-            <motion.section className="card-surface min-w-0 p-5 sm:p-8" {...fadeInUp(0.2)}>
+        <div className="min-w-0 space-y-8 sm:space-y-10">
+          {/* Interactive showcase */}
+          <motion.section className="min-w-0" {...fadeInUp(0.15)}>
+            <h2 className="font-display text-xl font-bold text-ink sm:text-2xl lg:text-3xl">Product showcase</h2>
+            <p className="mt-2 break-words text-sm text-ink-secondary sm:text-base">
+              Browse sections, navigate screenshots, and open fullscreen to explore the work in detail.
+            </p>
+            <div className="mt-5 sm:mt-6">
+              <ProjectShowcase
+                key={project.id}
+                pages={project.pagesInfoArr}
+                projectName={project.companyName}
+              />
+            </div>
+          </motion.section>
+
+          {/* Overview */}
+          <motion.section className="card-surface min-w-0 p-5 sm:p-8" {...fadeInUp(0.2)}>
               <h2 className="font-display text-xl font-bold text-ink sm:text-2xl">Project overview</h2>
               <div className="mt-5 space-y-4">
                 {project.descriptionDetails.paragraphs.map((paragraph, index) => (
@@ -219,7 +217,6 @@ export default function ProjectDetailPage() {
                 ))}
               </div>
             </motion.section>
-          </div>
         </div>
 
         {/* Prev / Next */}

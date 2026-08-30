@@ -30,11 +30,11 @@ export const CursorGlow: React.FC = () => {
       aria-hidden
     >
       <motion.div
-        className="absolute h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-500/8 blur-3xl"
+        className="absolute h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/8 blur-3xl"
         style={{ left: x, top: y }}
       />
       <motion.div
-        className="absolute h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/6 blur-2xl"
+        className="absolute h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-400/6 blur-2xl"
         style={{ left: x, top: y }}
       />
     </motion.div>

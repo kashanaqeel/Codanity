@@ -70,12 +70,22 @@ const Button: React.FC<ButtonProps> = ({
     }
 
     const isFullWidth = /\bw-full\b/.test(className);
+    const hasResponsiveAuto =
+      /\bsm:w-auto\b/.test(className) ||
+      /\bmd:w-auto\b/.test(className) ||
+      /\blg:w-auto\b/.test(className);
+
+    const wrapperClass = isFullWidth
+      ? hasResponsiveAuto
+        ? "flex w-full sm:inline-flex sm:w-auto"
+        : "flex w-full"
+      : "inline-flex";
 
     return (
       <motion.div
         whileHover={{ y: -2 }}
         whileTap={{ scale: 0.98 }}
-        className={isFullWidth ? "flex w-full" : "inline-flex"}
+        className={wrapperClass}
       >
         <Link href={href} className={classes}>
           {content}

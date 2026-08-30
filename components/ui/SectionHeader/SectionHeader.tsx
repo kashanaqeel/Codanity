@@ -28,7 +28,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     <div className={`flex flex-col gap-5 ${alignment} ${className}`}>
       {badge && (
         <motion.div className={`section-badge ${badgeClassName}`} {...fadeInUpSmall(0.05)}>
-          <span className={`h-1.5 w-1.5 rounded-full animate-pulse-soft ${dark ? "bg-cyan-400" : "bg-brand"}`} />
+          <span className={`h-1.5 w-1.5 rounded-full animate-pulse-soft ${dark ? "bg-accent-light" : "bg-brand"}`} />
           {badge}
         </motion.div>
       )}

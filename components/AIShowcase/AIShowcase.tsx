@@ -29,14 +29,14 @@ const DEMOS: {
     icon: MessageSquare,
     label: "Chatbots & Voice",
     tagline: "Text and phone-based AI agents",
-    color: "from-violet-500 to-purple-600",
+    color: "from-violet-500 to-indigo-600",
   },
   {
     id: "rag",
     icon: Database,
     label: "RAG Systems",
     tagline: "Grounded answers from your own data",
-    color: "from-cyan-500 to-blue-600",
+    color: "from-sky-500 to-indigo-600",
   },
   {
     id: "automation",
@@ -60,6 +60,8 @@ const CHAT_MESSAGES = [
   { role: "user", text: "Draft a follow-up email for the top 3 accounts" },
   { role: "ai", text: "Done — 3 personalized drafts ready. Each references their specific usage patterns and renewal dates." },
 ];
+
+const DEMO_PANEL_HEIGHT = "h-[400px] sm:h-[440px]";
 
 function ChatbotDemo() {
   const [visibleCount, setVisibleCount] = useState(0);
@@ -92,8 +94,8 @@ function ChatbotDemo() {
 
   return (
     <div className="flex h-full flex-col rounded-2xl border border-slate-800/60 bg-[#0a0f1e] p-4">
-      <div className="mb-3 flex items-center gap-2 border-b border-white/10 pb-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-purple-600">
+      <div className="mb-3 flex shrink-0 items-center gap-2 border-b border-white/10 pb-3">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600">
           <Bot className="h-4 w-4 text-white" />
         </div>
         <div>
@@ -104,33 +106,36 @@ function ChatbotDemo() {
           </p>
         </div>
       </div>
-      <div className="flex flex-1 flex-col gap-3 overflow-hidden">
-        {CHAT_MESSAGES.slice(0, visibleCount).map((msg, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed ${
-              msg.role === "user"
-                ? "ml-auto bg-brand text-white"
-                : "bg-white/10 text-slate-200"
-            }`}
-          >
-            {msg.text}
-          </motion.div>
-        ))}
-        {typing && (
-          <div className="flex gap-1 rounded-2xl bg-white/10 px-4 py-3 w-fit">
-            {[0, 1, 2].map((i) => (
-              <motion.span
-                key={i}
-                className="h-1.5 w-1.5 rounded-full bg-slate-400"
-                animate={{ opacity: [0.3, 1, 0.3] }}
-                transition={{ duration: 1, delay: i * 0.2, repeat: Infinity }}
-              />
-            ))}
-          </div>
-        )}
+      <div className="relative min-h-0 flex-1 overflow-hidden">
+        <div className="absolute inset-0 flex flex-col justify-end gap-2.5 overflow-hidden">
+          {CHAT_MESSAGES.slice(0, visibleCount).map((msg, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.25 }}
+              className={`max-w-[85%] shrink-0 rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed ${
+                msg.role === "user"
+                  ? "ml-auto bg-brand text-white"
+                  : "bg-white/10 text-slate-200"
+              }`}
+            >
+              {msg.text}
+            </motion.div>
+          ))}
+          {typing && (
+            <div className="flex w-fit shrink-0 gap-1 rounded-2xl bg-white/10 px-4 py-3">
+              {[0, 1, 2].map((i) => (
+                <motion.span
+                  key={i}
+                  className="h-1.5 w-1.5 rounded-full bg-slate-400"
+                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  transition={{ duration: 1, delay: i * 0.2, repeat: Infinity }}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -152,8 +157,8 @@ function RAGDemo() {
   }, []);
 
   return (
-    <div className="flex h-full flex-col justify-center gap-4 p-2 sm:gap-6">
-      <div className="grid grid-cols-2 gap-3 sm:flex sm:items-center sm:justify-between sm:gap-2">
+    <div className={`flex h-full flex-col justify-center gap-4 p-2 sm:gap-5`}>
+      <div className="grid shrink-0 grid-cols-2 gap-3 sm:flex sm:items-center sm:justify-between sm:gap-2">
         {RAG_STEPS.map((step, i) => {
           const Icon = step.icon;
           const isActive = i === activeStep;
@@ -167,23 +172,23 @@ function RAGDemo() {
                 <div
                   className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-500 sm:h-12 sm:w-12 ${
                     isActive
-                      ? "border-cyan-400/50 bg-cyan-500/20 shadow-glow-cyan"
+                      ? "border-sky-400/50 bg-sky-500/20 shadow-glow-cyan-tight"
                       : isPast
                       ? "border-emerald-400/30 bg-emerald-500/10"
                       : "border-white/10 bg-white/5"
                   }`}
                 >
-                  <Icon className={`h-5 w-5 ${isActive ? "text-cyan-300" : isPast ? "text-emerald-400" : "text-slate-500"}`} />
+                  <Icon className={`h-5 w-5 ${isActive ? "text-sky-300" : isPast ? "text-emerald-400" : "text-slate-500"}`} />
                 </div>
                 <div className="text-center">
-                  <p className={`text-xs font-semibold ${isActive ? "text-cyan-300" : "text-slate-400"}`}>{step.label}</p>
+                  <p className={`text-xs font-semibold ${isActive ? "text-sky-300" : "text-slate-400"}`}>{step.label}</p>
                   <p className="text-[10px] text-slate-600">{step.sub}</p>
                 </div>
               </motion.div>
               {i < RAG_STEPS.length - 1 && (
                 <div className="relative hidden h-px flex-1 overflow-hidden bg-white/10 sm:block">
                   <motion.div
-                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-400 to-blue-500"
+                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-sky-400 to-indigo-500"
                     animate={{ width: isPast ? "100%" : isActive ? "50%" : "0%" }}
                     transition={{ duration: 0.6 }}
                   />
@@ -193,19 +198,20 @@ function RAGDemo() {
           );
         })}
       </div>
-      <motion.div
-        key={activeStep}
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="rounded-xl border border-cyan-500/20 bg-cyan-500/5 p-4"
-      >
-        <p className="break-words text-[11px] font-mono text-cyan-300/80">
+      <div className="shrink-0 rounded-xl border border-sky-500/20 bg-sky-500/5 p-4">
+        <motion.p
+          key={activeStep}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="min-h-[2.75rem] break-words text-[11px] font-mono leading-relaxed text-sky-300/80"
+        >
           {activeStep === 0 && "→ Ingesting 1,247 documents from knowledge base..."}
           {activeStep === 1 && "→ Generating embeddings via text-embedding-3-large..."}
           {activeStep === 2 && "→ Storing 384-dim vectors in Pinecone index..."}
           {activeStep === 3 && "✓ Answer generated with 3 source citations (confidence: 0.94)"}
-        </p>
-      </motion.div>
+        </motion.p>
+      </div>
     </div>
   );
 }
@@ -251,7 +257,7 @@ function AutomationNode({
       transition={{ type: "spring", stiffness: 420, damping: 28 }}
       className={`rounded-xl border px-3 py-2.5 text-center transition-colors duration-300 ${className} ${
         isActive
-          ? "border-emerald-400/40 bg-emerald-500/15 shadow-glow-emerald"
+          ? "border-emerald-400/40 bg-emerald-500/15 shadow-glow-emerald-tight"
           : "border-white/10 bg-white/5"
       }`}
     >
@@ -275,7 +281,7 @@ function AutomationDemo() {
   const isComplete = phase === AUTO_PHASES.length - 1;
 
   return (
-    <div className="flex h-full min-h-[260px] flex-col items-center justify-center px-1 py-2">
+    <div className="flex h-full flex-col items-center justify-center px-1 py-2">
       <div className="w-full max-w-[15rem] sm:max-w-xs">
         <AutomationNode id="trigger" label="New lead" activeIds={activeIds} currentId={currentId} />
 
@@ -307,20 +313,13 @@ function AutomationDemo() {
         />
       </div>
 
-      <AnimatePresence mode="wait">
-        {isComplete && (
-          <motion.p
-            key="complete"
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.35 }}
-            className="mt-4 text-center text-[10px] font-medium text-emerald-300 sm:text-xs"
-          >
-            ✓ Workflow completed in 1.2s
-          </motion.p>
-        )}
-      </AnimatePresence>
+      <p
+        className={`mt-4 h-5 shrink-0 text-center text-[10px] font-medium transition-opacity duration-300 sm:text-xs ${
+          isComplete ? "text-emerald-300 opacity-100" : "text-transparent opacity-0"
+        }`}
+      >
+        ✓ Workflow completed in 1.2s
+      </p>
     </div>
   );
 }
@@ -344,8 +343,8 @@ function LLMDemo() {
   }, [modelIdx]);
 
   return (
-    <div className="flex h-full flex-col gap-4 p-2">
-      <div className="flex flex-wrap gap-2">
+    <div className="flex h-full flex-col gap-3 p-2 sm:gap-4">
+      <div className="flex shrink-0 flex-wrap gap-2">
         {LLM_MODELS.map((model, i) => (
           <motion.span
             key={model}
@@ -363,18 +362,25 @@ function LLMDemo() {
           </motion.span>
         ))}
       </div>
-      <div className="flex-1 rounded-xl border border-fuchsia-500/20 bg-[#0d0a1a] p-4 font-mono text-xs">
-        <p className="break-all text-fuchsia-400/60">$ codanity.llm.route({"{"}model: &quot;{LLM_MODELS[modelIdx]}&quot;{"}"})</p>
-        <p className="mt-3 break-words leading-relaxed text-slate-300">
-          {LLM_OUTPUT.slice(0, chars)}
-          <motion.span
-            className="inline-block h-3.5 w-1 bg-fuchsia-400"
-            animate={{ opacity: [1, 0, 1] }}
-            transition={{ duration: 0.8, repeat: Infinity }}
-          />
+      <div className="relative min-h-0 flex-1 overflow-hidden rounded-xl border border-fuchsia-500/20 bg-[#0d0a1a] p-4 font-mono text-xs">
+        <p className="break-all text-fuchsia-400/60">
+          $ codanity.llm.route({"{"}model: &quot;{LLM_MODELS[modelIdx]}&quot;{"}"})
         </p>
+        <div className="relative mt-3 min-h-[4.5rem]">
+          <p className="invisible break-words leading-relaxed" aria-hidden>
+            {LLM_OUTPUT}
+          </p>
+          <p className="absolute inset-0 break-words leading-relaxed text-slate-300">
+            {LLM_OUTPUT.slice(0, chars)}
+            <motion.span
+              className="inline-block h-3.5 w-1 bg-fuchsia-400"
+              animate={{ opacity: [1, 0, 1] }}
+              transition={{ duration: 0.8, repeat: Infinity }}
+            />
+          </p>
+        </div>
       </div>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid shrink-0 grid-cols-3 gap-2">
         {[
           { label: "Latency", value: "340ms" },
           { label: "Tokens", value: "1.2k" },
@@ -414,7 +420,7 @@ export const AIShowcase: React.FC = () => {
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="mesh-orb right-1/4 bottom-0 h-80 w-80 bg-cyan-500/15"
+          className="mesh-orb right-1/4 bottom-0 h-80 w-80 bg-brand/15"
           animate={{ x: [0, -20, 0], y: [0, -15, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -423,11 +429,11 @@ export const AIShowcase: React.FC = () => {
       <div className="relative">
         <SectionHeader
           badge="AI & Automation"
-          badgeClassName="border-cyan-500/20 bg-cyan-500/10 text-cyan-300"
+          badgeClassName="border-brand/25 bg-brand/10 text-brand-light"
           title={
             <>
               Smart features,{" "}
-              <span className="text-cyan-300">when you need them</span>
+              <span className="bg-gradient-to-r from-brand-light to-accent-light bg-clip-text text-transparent">when you need them</span>
             </>
           }
           subtitle="Not every project needs AI — but when yours does, we bring production experience with chatbots, voice agents, RAG pipelines, LLM integrations, and workflow automations alongside the full-stack engineering to ship it all."
@@ -446,7 +452,7 @@ export const AIShowcase: React.FC = () => {
                   onClick={() => setActive(demo.id)}
                   className={`group relative shrink-0 rounded-2xl border p-4 text-left transition-all duration-300 lg:w-full ${
                     isActive
-                      ? "border-white/20 bg-white/10 shadow-glow-ai"
+                      ? "border-white/20 bg-white/10 shadow-glow-ai-tight"
                       : "border-white/5 bg-white/[0.03] hover:border-white/15 hover:bg-white/[0.06]"
                   }`}
                 >
@@ -459,7 +465,7 @@ export const AIShowcase: React.FC = () => {
                   <div className="relative flex items-center gap-3">
                     <div
                       className={`rounded-xl p-2.5 bg-gradient-to-br ${demo.color} ${
-                        isActive ? "shadow-lg" : "opacity-60 group-hover:opacity-80"
+                        isActive ? "shadow-sm" : "opacity-60 group-hover:opacity-80"
                       }`}
                     >
                       <Icon className="h-4 w-4 text-white" />
@@ -477,9 +483,12 @@ export const AIShowcase: React.FC = () => {
           </div>
 
           <div className="relative min-w-0">
-            <div className={`absolute -inset-px rounded-3xl bg-gradient-to-br ${activeMeta.color} opacity-30 blur-sm`} />
-            <div className="relative min-h-[300px] overflow-hidden rounded-3xl border border-white/10 bg-[#0a0f1e]/90 p-4 backdrop-blur-xl sm:p-6">
-              <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <div
+              className={`pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br ${activeMeta.color} opacity-[0.07]`}
+              aria-hidden
+            />
+            <div className={`relative flex ${DEMO_PANEL_HEIGHT} flex-col overflow-hidden rounded-3xl border border-white/10 bg-[#0a0f1e]/95 p-4 shadow-panel-dark backdrop-blur-xl sm:p-6`}>
+              <div className="mb-4 flex shrink-0 flex-wrap items-center justify-between gap-2">
                 <div className="flex min-w-0 flex-wrap items-center gap-2">
                   <Sparkles className="h-4 w-4 shrink-0 text-violet-400" />
                   <span className="text-sm font-semibold text-white">{activeMeta.label}</span>
@@ -494,18 +503,20 @@ export const AIShowcase: React.FC = () => {
                 </div>
               </div>
 
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={active}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.35 }}
-                  className="min-h-[240px]"
-                >
-                  <ActiveDemo />
-                </motion.div>
-              </AnimatePresence>
+              <div className="min-h-0 flex-1 overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={active}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="h-full"
+                  >
+                    <ActiveDemo />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </motion.div>
@@ -520,8 +531,8 @@ export const AIShowcase: React.FC = () => {
             </span>
           ))}
           <Link
-            href="/services?category=ai"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-400 transition-colors hover:text-cyan-300"
+            href="/services?service=ai-chatbots"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-light transition-colors hover:text-accent-light"
           >
             Explore AI services
             <ArrowRight className="h-4 w-4" />

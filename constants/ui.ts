@@ -15,7 +15,7 @@ export const ANIMATION_DELAY = {
 export const COLORS = {
   PRIMARY: '#5128a0',
   PRIMARY_DARK: '#3e217e',
-  PRIMARY_LIGHT: '#5128a0',
+  PRIMARY_LIGHT: '#6b46c1',
   GRAY: {
     50: '#f9fafb',
     100: '#f3f4f6',
@@ -47,7 +47,7 @@ export const COLORS = {
 export const PROJECT_TYPE_COLORS = {
   Professional: 'bg-blue-100 text-blue-800',
   Personal: 'bg-green-100 text-green-800',
-  Freelance: 'bg-purple-100 text-purple-800',
+  Freelance: 'bg-brand-muted text-brand-dark',
 } as const;
 
 // Layout constants

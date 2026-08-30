@@ -56,11 +56,15 @@
   }
 
   .gradient-text {
-    @apply text-brand;
+    @apply bg-gradient-to-r from-brand to-brand-light bg-clip-text text-transparent;
   }
 
   .gradient-text-ai {
-    @apply text-brand;
+    @apply bg-gradient-to-r from-brand to-accent bg-clip-text text-transparent;
+  }
+
+  .page-hero-dark .gradient-text {
+    @apply bg-gradient-to-r from-brand-light to-accent-light bg-clip-text text-transparent;
   }
 
   .ai-card {

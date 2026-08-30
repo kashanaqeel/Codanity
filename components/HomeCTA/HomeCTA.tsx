@@ -28,7 +28,7 @@ const HomeCTA: React.FC<HomeCTAProps> = ({
   return (
     <Section background="bg-white" padding="SECTION" maxWidth="LARGE" animate={false}>
       <motion.div
-        className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand via-brand-dark to-brand-dark px-6 py-12 text-center sm:px-10 sm:py-16 lg:px-16"
+        className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#060912] via-brand-dark to-[#2d1b69] px-6 py-12 text-center sm:px-10 sm:py-16 lg:px-16"
         {...fadeInUp()}
       >
         <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-10" />
@@ -49,7 +49,7 @@ const HomeCTA: React.FC<HomeCTAProps> = ({
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
             {subtitle}
           </p>
-          <div className="mt-8 flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center">
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Button
               href={primaryHref}
               variant="primary"

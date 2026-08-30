@@ -1,65 +1,108 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { Code, Server, Smartphone, Globe, CheckCircle2, Bot, BrainCircuit, Workflow } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  ArrowRight,
+  Bot,
+  BrainCircuit,
+  Code,
+  Globe,
+  Layers,
+  Lightbulb,
+  Rocket,
+  Server,
+  Smartphone,
+  Sparkles,
+  Workflow,
+  Zap,
+} from "lucide-react";
+import { motion } from "framer-motion";
 import CountUp from "react-countup";
 import HomeCTA from "@/components/HomeCTA";
+import { ServicesExplorer } from "@/components/ServicesExplorer";
+import { ServicesProcess } from "@/components/ServicesProcess";
 import { Button, PageHero, Section } from "@/components";
-import { useAnimation } from "@/hooks";
+import type { ServiceItem } from "@/components/ServicesExplorer";
 
-type Service = {
-  id: string;
-  icon: typeof Code;
-  title: string;
-  description: string;
-  features: string[];
-  gradient: string;
-  category: "engineering" | "ai";
-};
-
-const services: Service[] = [
+const services: ServiceItem[] = [
   {
     id: "fullstack",
     icon: Code,
     title: "Full-Stack Development",
-    description: "End-to-end web solutions from concept to deployment — architecture, APIs, databases, and launch.",
-    features: ["Next.js & React", "Node.js & Nest.js", "PostgreSQL & MongoDB", "REST & GraphQL APIs", "Auth & security", "Performance tuning"],
+    description:
+      "End-to-end web solutions from concept to deployment — architecture, APIs, databases, and launch.",
+    features: [
+      "Next.js & React",
+      "Node.js & Nest.js",
+      "PostgreSQL & MongoDB",
+      "REST & GraphQL APIs",
+      "Auth & security",
+      "Performance tuning",
+    ],
+    highlights: ["Single team from UI to API", "Production-ready architecture", "Faster time to market"],
+    idealFor: ["SaaS products", "Internal tools", "MVPs & scale-ups"],
     gradient: "from-brand to-brand-light",
-    category: "engineering",
   },
   {
     id: "frontend",
     icon: Globe,
     title: "Frontend Development",
-    description: "Beautiful, responsive, and interactive user interfaces built with modern frameworks.",
-    features: ["React & Next.js", "TypeScript", "Tailwind CSS", "Responsive design", "Accessibility", "Design systems"],
+    description:
+      "Beautiful, responsive, and interactive user interfaces built with modern frameworks.",
+    features: [
+      "React & Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Responsive design",
+      "Accessibility",
+      "Design systems",
+    ],
+    highlights: ["Pixel-perfect implementation", "Smooth interactions", "Mobile-first layouts"],
+    idealFor: ["Marketing sites", "Dashboards", "Design handoffs"],
     gradient: "from-indigo-500 to-violet-600",
-    category: "engineering",
   },
   {
     id: "backend",
     icon: Server,
     title: "Backend Development",
-    description: "Robust server-side applications, scalable APIs, and cloud-ready infrastructure.",
-    features: ["Nest.js & Express", "Django & Python", "Database design", "Cloud deployment", "Caching & queues", "API architecture"],
+    description:
+      "Robust server-side applications, scalable APIs, and cloud-ready infrastructure.",
+    features: [
+      "Nest.js & Express",
+      "Django & Python",
+      "Database design",
+      "Cloud deployment",
+      "Caching & queues",
+      "API architecture",
+    ],
+    highlights: ["Scalable API design", "Secure data layers", "Cloud-native deployment"],
+    idealFor: ["API platforms", "Data-heavy apps", "Enterprise systems"],
     gradient: "from-slate-600 to-slate-800",
-    category: "engineering",
   },
   {
     id: "mobile",
     icon: Smartphone,
     title: "Mobile App Development",
     description: "Cross-platform and native mobile applications for iOS and Android.",
-    features: ["React Native", "Flutter", "iOS & Android", "Push notifications", "Offline support", "App store delivery"],
+    features: [
+      "React Native",
+      "Flutter",
+      "iOS & Android",
+      "Push notifications",
+      "Offline support",
+      "App store delivery",
+    ],
+    highlights: ["One codebase, two platforms", "Native-feel UX", "Store-ready delivery"],
+    idealFor: ["Consumer apps", "Field tools", "On-the-go workflows"],
     gradient: "from-orange-500 to-rose-600",
-    category: "engineering",
   },
   {
     id: "ai-chatbots",
     icon: Bot,
     title: "AI Chatbots & Voice Agents",
-    description: "Conversational agents for chat and phone — context-aware assistants that integrate with your tools and workflows.",
+    description:
+      "Conversational agents for chat and phone — context-aware assistants that integrate with your tools and workflows.",
     features: [
       "Custom GPT/Claude agents",
       "Voice agents & phone integrations",
@@ -68,45 +111,67 @@ const services: Service[] = [
       "Tool & API calling",
       "Human handoff flows",
     ],
-    gradient: "from-violet-500 to-purple-600",
-    category: "ai",
+    highlights: ["24/7 customer support", "Voice & chat channels", "CRM & tool integrations"],
+    idealFor: ["Support teams", "Sales workflows", "Booking & intake"],
+    gradient: "from-violet-600 to-indigo-700",
   },
   {
     id: "rag",
     icon: BrainCircuit,
     title: "RAG & Knowledge Bases",
-    description: "Ground AI responses in your documents, wikis, and databases for accurate, cited answers.",
-    features: ["Document ingestion pipelines", "Vector database setup", "Semantic search", "Source citation", "Multi-format support", "Continuous indexing"],
-    gradient: "from-cyan-500 to-blue-600",
-    category: "ai",
+    description:
+      "Ground AI responses in your documents, wikis, and databases for accurate, cited answers.",
+    features: [
+      "Document ingestion pipelines",
+      "Vector database setup",
+      "Semantic search",
+      "Source citation",
+      "Multi-format support",
+      "Continuous indexing",
+    ],
+    highlights: ["Answers from your data", "Source citations", "Always up to date"],
+    idealFor: ["Internal wikis", "Support docs", "Compliance-heavy teams"],
+    gradient: "from-indigo-500 to-violet-600",
   },
   {
     id: "automation",
     icon: Workflow,
     title: "AI Automations",
-    description: "Intelligent workflows that process data, trigger actions, and eliminate repetitive manual work.",
-    features: ["n8n & custom pipelines", "Lead enrichment", "Document processing", "Email & notification flows", "CRM integrations", "Scheduled jobs"],
+    description:
+      "Intelligent workflows that process data, trigger actions, and eliminate repetitive manual work.",
+    features: [
+      "n8n & custom pipelines",
+      "Lead enrichment",
+      "Document processing",
+      "Email & notification flows",
+      "CRM integrations",
+      "Scheduled jobs",
+    ],
+    highlights: ["Hours saved weekly", "Fewer manual errors", "Connected toolchains"],
+    idealFor: ["Ops teams", "Sales & marketing", "Back-office workflows"],
     gradient: "from-emerald-500 to-teal-600",
-    category: "ai",
   },
 ];
 
 const stats = [
-  { value: 20, suffix: "+", label: "Projects delivered" },
-  { value: 94, suffix: "%", label: "Success rate" },
-  { value: 5, suffix: "+", label: "Years experience" },
-  { value: 24, suffix: "/7", label: "Support" },
+  { value: 20, suffix: "+", label: "Projects delivered", icon: Rocket },
+  { value: 94, suffix: "%", label: "Success rate", icon: Zap },
+  { value: 5, suffix: "+", label: "Years experience", icon: Layers },
+  { value: 24, suffix: "/7", label: "Support", icon: Sparkles },
 ];
 
-const engineeringServices = services.filter((s) => s.category === "engineering");
-const aiServices = services.filter((s) => s.category === "ai");
+const processSteps = [
+  { icon: Lightbulb, title: "Discover", description: "Goals, scope, and technical requirements" },
+  { icon: Layers, title: "Design", description: "Architecture, UX flows, and milestones" },
+  { icon: Code, title: "Build", description: "Iterative development with clear updates" },
+  { icon: Rocket, title: "Launch", description: "Deploy, monitor, and hand over confidently" },
+];
 
 const DEFAULT_SERVICE_ID = services[0].id;
-const DEFAULT_AI_SERVICE_ID = aiServices[0]?.id ?? "ai-chatbots";
 
 const resolveServiceId = (
   serviceParam: string | string[] | undefined,
-  categoryParam: string | string[] | undefined
+  categoryParam?: string | string[] | undefined
 ): string => {
   const service = Array.isArray(serviceParam) ? serviceParam[0] : serviceParam;
   const category = Array.isArray(categoryParam) ? categoryParam[0] : categoryParam;
@@ -116,70 +181,48 @@ const resolveServiceId = (
   }
 
   if (category === "ai") {
-    return DEFAULT_AI_SERVICE_ID;
+    return "ai-chatbots";
   }
 
   return DEFAULT_SERVICE_ID;
 };
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 18 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 export default function ServicesPage() {
   const router = useRouter();
   const [activeId, setActiveId] = useState(DEFAULT_SERVICE_ID);
-  const { fadeInUp } = useAnimation();
-  const active = services.find((s) => s.id === activeId) ?? services[0];
-  const ActiveIcon = active.icon;
 
   useEffect(() => {
     if (!router.isReady) return;
-    setActiveId(resolveServiceId(router.query.service, router.query.category));
+    const resolved = resolveServiceId(router.query.service, router.query.category);
+    setActiveId((current) => (current === resolved ? current : resolved));
   }, [router.isReady, router.query.service, router.query.category]);
 
   const selectService = (serviceId: string) => {
+    if (serviceId === activeId) return;
     setActiveId(serviceId);
     router.replace({ pathname: "/services", query: { service: serviceId } }, undefined, {
       shallow: true,
+      scroll: false,
     });
-  };
-
-  const renderServiceButton = (service: Service) => {
-    const Icon = service.icon;
-    const isActive = service.id === activeId;
-
-    return (
-      <button
-        key={service.id}
-        type="button"
-        onClick={() => selectService(service.id)}
-        className={`relative shrink-0 rounded-2xl border px-4 py-4 text-left transition-all duration-300 lg:shrink lg:w-full ${
-          isActive
-            ? service.category === "ai"
-              ? "border-violet-500/25 bg-violet-500/5 shadow-glow-ai"
-              : "border-brand/25 bg-brand-muted shadow-soft"
-            : "border-slate-200/70 bg-white hover:border-brand/15"
-        }`}
-      >
-        <div className="flex items-center gap-3">
-          <div
-            className={`rounded-xl bg-gradient-to-br p-2.5 transition-all ${
-              isActive ? `${service.gradient} text-white shadow-lg` : "bg-surface-muted text-brand"
-            }`}
-          >
-            <Icon className="h-5 w-5" />
-          </div>
-          <div>
-            <p className="font-display text-sm font-semibold text-ink sm:text-base">{service.title}</p>
-            <p className="mt-0.5 text-xs text-ink-secondary line-clamp-2">{service.description}</p>
-          </div>
-        </div>
-      </button>
-    );
   };
 
   return (
     <>
       <Head>
         <title>Our Services - Codanity</title>
-        <meta name="description" content="Full-stack web, mobile, and AI development services from Codanity." />
+        <meta
+          name="description"
+          content="Full-stack web, mobile, and AI development services from Codanity."
+        />
       </Head>
 
       <PageHero
@@ -190,117 +233,78 @@ export default function ServicesPage() {
           </>
         }
         subtitle="From full-stack engineering and mobile apps to AI chatbots, voice agents, RAG systems, and automations — we cover the stack your product needs."
-      />
-
-      <Section background="bg-white" padding="SECTION" maxWidth="LARGE" animate={false}>
+      >
         <motion.div
-          className="grid grid-cols-2 gap-4 rounded-2xl border border-slate-200/70 bg-surface-subtle p-6 sm:grid-cols-4 lg:p-8"
-          {...fadeInUp(0.05)}
+          className="mt-10 w-full"
+          variants={itemVariants}
+          initial="hidden"
+          animate="visible"
         >
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="font-display text-2xl font-bold text-brand sm:text-3xl">
-                <CountUp end={stat.value} suffix={stat.suffix} duration={2} enableScrollSpy scrollSpyOnce />
-              </p>
-              <p className="mt-1 text-xs text-ink-secondary sm:text-sm">{stat.label}</p>
-            </div>
-          ))}
-        </motion.div>
-
-        <div className="mt-14 grid min-w-0 gap-8 lg:grid-cols-[minmax(0,300px)_1fr]">
-          <motion.div
-            className="min-w-0 max-w-full overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:overflow-visible lg:pb-0"
-            {...fadeInUp(0.1)}
-          >
-            <div className="hidden lg:contents">
-              <p className="mb-1 px-1 text-xs font-semibold uppercase tracking-wider text-ink-muted">
-                Product Engineering
-              </p>
-              {engineeringServices.map(renderServiceButton)}
-              <p className="mb-1 mt-4 px-1 text-xs font-semibold uppercase tracking-wider text-ink-muted">
-                AI & Automation
-              </p>
-              {aiServices.map(renderServiceButton)}
-            </div>
-            <div className="flex w-max min-w-full gap-2 lg:hidden">
-              {services.map((service) => {
-                const Icon = service.icon;
-                const isActive = service.id === activeId;
+          <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4 shadow-panel-dark backdrop-blur-md sm:p-5">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
+              {stats.map((stat) => {
+                const Icon = stat.icon;
                 return (
-                  <button
-                    key={service.id}
-                    type="button"
-                    onClick={() => selectService(service.id)}
-                    className={`flex shrink-0 snap-start flex-col items-center gap-2 rounded-2xl border px-4 py-3 transition-all duration-300 ${
-                      isActive
-                        ? service.category === "ai"
-                          ? "border-violet-500/25 bg-violet-500/5 shadow-glow-ai"
-                          : "border-brand/25 bg-brand-muted shadow-soft"
-                        : "border-slate-200/70 bg-white"
-                    }`}
-                  >
-                    <div
-                      className={`rounded-xl bg-gradient-to-br p-2 ${
-                        isActive ? `${service.gradient} text-white` : "bg-surface-muted text-brand"
-                      }`}
-                    >
-                      <Icon className="h-4 w-4" />
+                  <div key={stat.label} className="text-center sm:text-left">
+                    <div className="mb-1.5 flex items-center justify-center gap-1.5 sm:justify-start">
+                      <Icon className="h-3.5 w-3.5 text-brand-light/80" />
+                      <span className="text-[11px] font-medium uppercase tracking-wide text-slate-500">
+                        {stat.label}
+                      </span>
                     </div>
-                    <span className="max-w-[5.5rem] text-center text-[10px] font-semibold leading-tight text-ink line-clamp-2">
-                      {service.title}
-                    </span>
-                  </button>
+                    <p className="font-display text-2xl font-bold text-white sm:text-3xl">
+                      <CountUp end={stat.value} suffix={stat.suffix} duration={2} enableScrollSpy scrollSpyOnce />
+                    </p>
+                  </div>
                 );
               })}
             </div>
-          </motion.div>
-
-          <motion.div className="card-surface relative overflow-hidden p-6 sm:p-8" {...fadeInUp(0.15)}>
-            <div className={`pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-gradient-to-br ${active.gradient} opacity-10 blur-3xl`} />
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={active.id}
-                initial={{ opacity: 0, x: 16 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -16 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            <div className="mt-5 flex flex-col items-center justify-center gap-3 border-t border-white/10 pt-5 sm:flex-row">
+              <Button href="/contacts" variant="primary" size="md" className="w-full sm:w-auto">
+                Start a project
+              </Button>
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-light transition-colors hover:text-accent-light"
               >
-                <div className="mb-3">
-                  <span
-                    className={`inline-block rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
-                      active.category === "ai"
-                        ? "bg-violet-500/10 text-violet-600"
-                        : "bg-brand-muted text-brand"
-                    }`}
-                  >
-                    {active.category === "ai" ? "AI & Automation" : "Product Engineering"}
-                  </span>
-                </div>
-                <div className={`mb-6 inline-flex rounded-2xl bg-gradient-to-br p-4 text-white ${active.gradient}`}>
-                  <ActiveIcon className="h-7 w-7" />
-                </div>
-                <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">{active.title}</h2>
-                <p className="mt-3 text-ink-secondary">{active.description}</p>
+                View our work
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+      </PageHero>
 
-                <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-                  {active.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2.5 text-sm text-ink-secondary">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-8">
-                  <Button href="/contacts" variant="primary" size="lg">
-                    Discuss this service
-                  </Button>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
+      <Section
+        background="bg-surface-subtle"
+        padding="SECTION"
+        maxWidth="LARGE"
+        animate={false}
+        className="!pt-8 sm:!pt-10"
+      >
+        <div className="mb-10 text-center lg:mb-12">
+          <p className="section-badge mx-auto">Explore our capabilities</p>
+          <h2 className="section-title mt-4 text-balance">
+            See how we build
+          </h2>
+          <p className="section-subtitle mt-3">
+            Each capability comes alive with a live preview — architecture flows, product surfaces, and AI pipelines in motion.
+          </p>
         </div>
+
+        <ServicesExplorer services={services} activeId={activeId} onSelect={selectService} />
+      </Section>
+
+      <Section background="bg-white" padding="SECTION" maxWidth="LARGE" animate={false}>
+        <div className="mb-10 text-center lg:mb-12">
+          <p className="section-badge mx-auto">How we work</p>
+          <h2 className="section-title mt-4">A clear path from idea to launch</h2>
+          <p className="section-subtitle mt-3">
+            A structured journey from first conversation to production launch.
+          </p>
+        </div>
+
+        <ServicesProcess steps={processSteps} />
       </Section>
 
       <HomeCTA

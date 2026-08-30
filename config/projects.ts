@@ -69,59 +69,6 @@ export const Projects: ProjectsInterface[] = [
     },
   },
   {
-    id: "rahmat-al-naseer",
-    companyName: "Rahmat Al-Naseer",
-    type: "Professional",
-    category: ["Full Stack", "Web Dev", "UI/UX"],
-    shortDescription:
-      "Built a purpose-driven charity website to raise awareness for children in need, share news and resources, and drive donations with a clear, trustworthy user experience.",
-    websiteLink: "https://rahmatalnaseer.pk/",
-    techStack: [
-      "Next.js",
-      "React",
-      "Typescript",
-      "Tailwind CSS",
-    ] as ValidSkills[],
-    startDate: new Date("2025-10-01"),
-    endDate: new Date("2026-08-01"),
-    companyLogoImg: "/projects/ran/ran-cover.png",
-    pagesInfoArr: [
-      {
-        title: "Homepage & Hero",
-        description:
-          "An emotional landing experience with Urdu messaging, clear navigation, and prominent donate and join calls to action for supporters.",
-        imgArr: ["/projects/ran/ran-cover.png"],
-      },
-      {
-        title: "Kids in Need",
-        description:
-          "A storytelling section highlighting the scale of child poverty in Pakistan, paired with a visual collage and donation prompt to inspire action.",
-        imgArr: ["/projects/ran/ran-1.png"],
-      },
-      {
-        title: "News & Resources",
-        description:
-          "A content hub for publishing community news, impact stories, and resources with category stats and a responsive article grid.",
-        imgArr: ["/projects/ran/ran-2.png"],
-      },
-    ],
-    descriptionDetails: {
-      paragraphs: [
-        "Rahmat Al-Naseer is a charitable organisation focused on supporting children in need across Pakistan. Codanity built a website that communicates the mission clearly while making it easy for visitors to learn, stay informed, and contribute.",
-        "The platform presents a warm, trustworthy brand experience with sections for awareness, future support programmes, news updates, and community engagement. The design balances emotional storytelling with practical navigation for donors and volunteers.",
-        "Built with Next.js, React, TypeScript, and Tailwind CSS, the site is fast, responsive, and structured to scale as the organisation grows its outreach, content publishing, and donation workflows.",
-      ],
-      bullets: [
-        "Developed a responsive charity website with a mission-led homepage and strong donate and join conversion paths.",
-        "Designed an awareness section that communicates the scale of child poverty in Pakistan with compelling visuals and calls to action.",
-        "Built a news and resources hub for publishing stories, updates, and community content.",
-        "Implemented a clean navigation structure covering about, kids in need, policies, and contact pages.",
-        "Created a polished UI with accessible typography, consistent branding, and mobile-friendly layouts.",
-        "Engineered a scalable frontend architecture using Next.js, React, TypeScript, and Tailwind CSS.",
-      ],
-    },
-  },
-  {
     id: "hero-generation",
     companyName: "HeroGeneration",
     type: "Professional",
@@ -364,6 +311,59 @@ export const Projects: ProjectsInterface[] = [
         "Implemented contextual awareness that understands various e-commerce concepts and terminology relevant to HighTicket's educational content.",
         "Integrated user profiles to personalize responses and track conversation history for continuous improvement.",
         "Established secure backend architecture using Nest.js and PostgreSQL for data management and user authentication.",
+      ],
+    },
+  },
+  {
+    id: "rahmat-al-naseer",
+    companyName: "Rahmat Al-Naseer",
+    type: "Professional",
+    category: ["Full Stack", "Web Dev", "UI/UX"],
+    shortDescription:
+      "Built a purpose-driven charity website to raise awareness for children in need, share news and resources, and drive donations with a clear, trustworthy user experience.",
+    websiteLink: "https://rahmatalnaseer.pk/",
+    techStack: [
+      "Next.js",
+      "React",
+      "Typescript",
+      "Tailwind CSS",
+    ] as ValidSkills[],
+    startDate: new Date("2025-10-01"),
+    endDate: new Date("2026-08-01"),
+    companyLogoImg: "/projects/ran/ran-cover.png",
+    pagesInfoArr: [
+      {
+        title: "Homepage & Hero",
+        description:
+          "An emotional landing experience with Urdu messaging, clear navigation, and prominent donate and join calls to action for supporters.",
+        imgArr: ["/projects/ran/ran-cover.png"],
+      },
+      {
+        title: "Kids in Need",
+        description:
+          "A storytelling section highlighting the scale of child poverty in Pakistan, paired with a visual collage and donation prompt to inspire action.",
+        imgArr: ["/projects/ran/ran-1.png"],
+      },
+      {
+        title: "News & Resources",
+        description:
+          "A content hub for publishing community news, impact stories, and resources with category stats and a responsive article grid.",
+        imgArr: ["/projects/ran/ran-2.png"],
+      },
+    ],
+    descriptionDetails: {
+      paragraphs: [
+        "Rahmat Al-Naseer is a charitable organisation focused on supporting children in need across Pakistan. Codanity built a website that communicates the mission clearly while making it easy for visitors to learn, stay informed, and contribute.",
+        "The platform presents a warm, trustworthy brand experience with sections for awareness, future support programmes, news updates, and community engagement. The design balances emotional storytelling with practical navigation for donors and volunteers.",
+        "Built with Next.js, React, TypeScript, and Tailwind CSS, the site is fast, responsive, and structured to scale as the organisation grows its outreach, content publishing, and donation workflows.",
+      ],
+      bullets: [
+        "Developed a responsive charity website with a mission-led homepage and strong donate and join conversion paths.",
+        "Designed an awareness section that communicates the scale of child poverty in Pakistan with compelling visuals and calls to action.",
+        "Built a news and resources hub for publishing stories, updates, and community content.",
+        "Implemented a clean navigation structure covering about, kids in need, policies, and contact pages.",
+        "Created a polished UI with accessible typography, consistent branding, and mobile-friendly layouts.",
+        "Engineered a scalable frontend architecture using Next.js, React, TypeScript, and Tailwind CSS.",
       ],
     },
   },

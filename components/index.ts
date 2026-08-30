@@ -5,3 +5,5 @@ export * from './ui/PageHero';
 export * from './ui/TabGroup';
 export * from './ui/SearchInput';
 export * from './ui/FilterChip';
+export * from './ServicesExplorer';
+export * from './ServicesProcess';
