@@ -25,7 +25,7 @@ const Section: React.FC<SectionProps> = ({
   const { fadeInUp } = useAnimation();
 
   const sectionClasses = `${background} ${LAYOUT.PADDING[padding]} ${className}`;
-  const containerClasses = `${LAYOUT.MAX_WIDTH[maxWidth]} mx-auto ${LAYOUT.PADDING.CONTAINER}`;
+  const containerClasses = `${LAYOUT.MAX_WIDTH[maxWidth]} mx-auto w-full min-w-0 max-w-full ${LAYOUT.PADDING.CONTAINER}`;
 
   if (!animate) {
     return (

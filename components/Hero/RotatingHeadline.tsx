@@ -21,7 +21,7 @@ export const RotatingHeadline: React.FC = () => {
   }, []);
 
   return (
-    <span className="relative mt-1 block h-[1.2em] w-full overflow-hidden">
+    <span className="relative mt-1 block min-h-[1.2em] w-full">
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
           key={PHRASES[index]}
@@ -29,7 +29,7 @@ export const RotatingHeadline: React.FC = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.35, ease: "easeInOut" }}
-          className="absolute inset-0 whitespace-nowrap text-brand"
+          className="block break-words text-brand sm:whitespace-nowrap"
         >
           {PHRASES[index]}
         </motion.span>

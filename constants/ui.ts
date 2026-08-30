@@ -58,7 +58,7 @@ export const LAYOUT = {
     LARGE: 'max-w-7xl',
   },
   PADDING: {
-    SECTION: 'py-16 lg:py-24',
-    CONTAINER: 'px-4',
+    SECTION: 'py-12 sm:py-16 lg:py-24',
+    CONTAINER: 'px-4 sm:px-6 lg:px-8',
   },
 } as const;

@@ -63,7 +63,7 @@ export const Navbar: FC<NavbarProps> = ({ navigations }) => {
 
             <button
               onClick={() => setIsOpen((open) => !open)}
-              className="rounded-xl p-2 text-ink-secondary transition-colors hover:bg-surface-muted hover:text-ink md:hidden"
+              className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl p-2 text-ink-secondary transition-colors hover:bg-surface-muted hover:text-ink md:hidden"
               aria-label={isOpen ? "Close menu" : "Open menu"}
               aria-expanded={isOpen}
             >

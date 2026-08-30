@@ -69,7 +69,12 @@ export default function ContactPage() {
         <title>Contact Us - Codanity</title>
         <meta name="description" content="Get in touch with Codanity." />
       </Head>
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        className="!top-4 sm:!top-6"
+        toastClassName="!mx-4 !max-w-[calc(100vw-2rem)]"
+      />
 
       <PageHero
         badge="Let's Connect"
@@ -110,7 +115,7 @@ export default function ContactPage() {
                           {line}
                         </a>
                       ) : (
-                        <p key={line} className="mt-1 text-sm text-ink-secondary">
+                        <p key={line} className="mt-1 break-words text-sm text-ink-secondary">
                           {line}
                         </p>
                       )

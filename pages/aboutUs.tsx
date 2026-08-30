@@ -63,7 +63,7 @@ export default function AboutUsPage() {
         >
           {stats.map((stat) => (
             <div key={stat.label} className="text-center">
-              <p className="font-display text-3xl font-bold text-brand">
+              <p className="font-display text-2xl font-bold text-brand sm:text-3xl">
                 <CountUp end={stat.value} suffix={stat.suffix} duration={2} enableScrollSpy scrollSpyOnce />
               </p>
               <p className="mt-1 text-xs text-ink-secondary sm:text-sm">{stat.label}</p>

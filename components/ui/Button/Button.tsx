@@ -69,8 +69,14 @@ const Button: React.FC<ButtonProps> = ({
       );
     }
 
+    const isFullWidth = /\bw-full\b/.test(className);
+
     return (
-      <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="inline-flex">
+      <motion.div
+        whileHover={{ y: -2 }}
+        whileTap={{ scale: 0.98 }}
+        className={isFullWidth ? "flex w-full" : "inline-flex"}
+      >
         <Link href={href} className={classes}>
           {content}
         </Link>

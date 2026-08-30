@@ -49,12 +49,12 @@ const HomeCTA: React.FC<HomeCTAProps> = ({
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
             {subtitle}
           </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="mt-8 flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center">
             <Button
               href={primaryHref}
               variant="primary"
               size="lg"
-              className="bg-white text-brand hover:bg-white/90 hover:shadow-glow"
+              className="w-full bg-white text-brand hover:bg-white/90 hover:shadow-glow sm:w-auto"
               icon={<ArrowRight className="h-4 w-4" />}
             >
               {primaryLabel}
@@ -63,7 +63,7 @@ const HomeCTA: React.FC<HomeCTAProps> = ({
               href={secondaryHref}
               variant="outline"
               size="lg"
-              className="border-white/30 bg-white/10 text-white backdrop-blur-sm hover:border-white/50 hover:bg-white/20 hover:text-white"
+              className="w-full border-white/30 bg-white/10 text-white backdrop-blur-sm hover:border-white/50 hover:bg-white/20 hover:text-white sm:w-auto"
             >
               {secondaryLabel}
             </Button>

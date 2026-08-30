@@ -152,8 +152,8 @@ function RAGDemo() {
   }, []);
 
   return (
-    <div className="flex h-full flex-col justify-center gap-6 p-2">
-      <div className="flex items-center justify-between gap-2">
+    <div className="flex h-full flex-col justify-center gap-4 p-2 sm:gap-6">
+      <div className="grid grid-cols-2 gap-3 sm:flex sm:items-center sm:justify-between sm:gap-2">
         {RAG_STEPS.map((step, i) => {
           const Icon = step.icon;
           const isActive = i === activeStep;
@@ -165,7 +165,7 @@ function RAGDemo() {
                 animate={{ opacity: isActive || isPast ? 1 : 0.4 }}
               >
                 <div
-                  className={`flex h-12 w-12 items-center justify-center rounded-xl border transition-all duration-500 ${
+                  className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-500 sm:h-12 sm:w-12 ${
                     isActive
                       ? "border-cyan-400/50 bg-cyan-500/20 shadow-glow-cyan"
                       : isPast
@@ -181,7 +181,7 @@ function RAGDemo() {
                 </div>
               </motion.div>
               {i < RAG_STEPS.length - 1 && (
-                <div className="relative h-px flex-1 overflow-hidden bg-white/10">
+                <div className="relative hidden h-px flex-1 overflow-hidden bg-white/10 sm:block">
                   <motion.div
                     className="absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-400 to-blue-500"
                     animate={{ width: isPast ? "100%" : isActive ? "50%" : "0%" }}
@@ -199,7 +199,7 @@ function RAGDemo() {
         animate={{ opacity: 1, y: 0 }}
         className="rounded-xl border border-cyan-500/20 bg-cyan-500/5 p-4"
       >
-        <p className="text-[11px] font-mono text-cyan-300/80">
+        <p className="break-words text-[11px] font-mono text-cyan-300/80">
           {activeStep === 0 && "→ Ingesting 1,247 documents from knowledge base..."}
           {activeStep === 1 && "→ Generating embeddings via text-embedding-3-large..."}
           {activeStep === 2 && "→ Storing 384-dim vectors in Pinecone index..."}
@@ -210,81 +210,117 @@ function RAGDemo() {
   );
 }
 
-const AUTO_NODES = [
-  { id: "trigger", label: "New lead", x: 10, y: 45 },
-  { id: "enrich", label: "AI enrich", x: 35, y: 20 },
-  { id: "score", label: "Score lead", x: 35, y: 70 },
-  { id: "route", label: "Route", x: 62, y: 45 },
-  { id: "notify", label: "Notify team", x: 85, y: 45 },
-];
+const AUTO_PHASES = [
+  ["trigger"],
+  ["trigger", "enrich", "score"],
+  ["trigger", "enrich", "score", "route"],
+  ["trigger", "enrich", "score", "route", "notify"],
+] as const;
+
+function AutomationConnector({ active }: { active: boolean }) {
+  return (
+    <div className="flex justify-center py-1">
+      <motion.div
+        className={`h-4 w-px ${active ? "bg-emerald-400" : "bg-white/10"}`}
+        animate={{ scaleY: active ? 1 : 0.4, opacity: active ? 1 : 0.45 }}
+        transition={{ duration: 0.35 }}
+      />
+    </div>
+  );
+}
+
+function AutomationNode({
+  id,
+  label,
+  activeIds,
+  currentId,
+  className = "",
+}: {
+  id: string;
+  label: string;
+  activeIds: Set<string>;
+  currentId: string;
+  className?: string;
+}) {
+  const isActive = activeIds.has(id);
+  const isCurrent = currentId === id;
+
+  return (
+    <motion.div
+      animate={{ scale: isCurrent ? 1.04 : 1 }}
+      transition={{ type: "spring", stiffness: 420, damping: 28 }}
+      className={`rounded-xl border px-3 py-2.5 text-center transition-colors duration-300 ${className} ${
+        isActive
+          ? "border-emerald-400/40 bg-emerald-500/15 shadow-glow-emerald"
+          : "border-white/10 bg-white/5"
+      }`}
+    >
+      <p className={`text-[10px] font-semibold sm:text-xs ${isActive ? "text-emerald-300" : "text-slate-500"}`}>
+        {label}
+      </p>
+    </motion.div>
+  );
+}
 
 function AutomationDemo() {
-  const [pulse, setPulse] = useState(0);
+  const [phase, setPhase] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => setPulse((p) => (p + 1) % AUTO_NODES.length), 1000);
+    const t = setInterval(() => setPhase((p) => (p + 1) % AUTO_PHASES.length), 1400);
     return () => clearInterval(t);
   }, []);
 
+  const activeIds = new Set(AUTO_PHASES[phase]);
+  const currentId = AUTO_PHASES[phase][AUTO_PHASES[phase].length - 1];
+  const isComplete = phase === AUTO_PHASES.length - 1;
+
   return (
-    <div className="relative h-full min-h-[220px]">
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-        {[
-          ["trigger", "enrich"],
-          ["trigger", "score"],
-          ["enrich", "route"],
-          ["score", "route"],
-          ["route", "notify"],
-        ].map(([from, to], i) => {
-          const a = AUTO_NODES.find((n) => n.id === from)!;
-          const b = AUTO_NODES.find((n) => n.id === to)!;
-          const lit = AUTO_NODES.indexOf(AUTO_NODES.find((n) => n.id === from)!) <= pulse;
-          return (
-            <motion.line
-              key={i}
-              x1={a.x}
-              y1={a.y}
-              x2={b.x}
-              y2={b.y}
-              stroke={lit ? "#34d399" : "rgba(255,255,255,0.1)"}
-              strokeWidth="0.4"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-            />
-          );
-        })}
-      </svg>
-      {AUTO_NODES.map((node, i) => (
-        <motion.div
-          key={node.id}
-          className="absolute -translate-x-1/2 -translate-y-1/2"
-          style={{ left: `${node.x}%`, top: `${node.y}%` }}
-          animate={{ scale: pulse === i ? 1.08 : 1 }}
-        >
-          <div
-            className={`rounded-xl border px-3 py-2 text-center transition-all duration-300 ${
-              pulse >= i
-                ? "border-emerald-400/40 bg-emerald-500/15 shadow-glow-emerald"
-                : "border-white/10 bg-white/5"
-            }`}
+    <div className="flex h-full min-h-[260px] flex-col items-center justify-center px-1 py-2">
+      <div className="w-full max-w-[15rem] sm:max-w-xs">
+        <AutomationNode id="trigger" label="New lead" activeIds={activeIds} currentId={currentId} />
+
+        <AutomationConnector active={phase >= 1} />
+
+        <div className="grid grid-cols-2 gap-2">
+          <AutomationNode id="enrich" label="AI enrich" activeIds={activeIds} currentId={currentId} />
+          <AutomationNode id="score" label="Score lead" activeIds={activeIds} currentId={currentId} />
+        </div>
+
+        <AutomationConnector active={phase >= 2} />
+
+        <AutomationNode
+          id="route"
+          label="Route"
+          activeIds={activeIds}
+          currentId={currentId}
+          className="mx-auto max-w-[7.5rem]"
+        />
+
+        <AutomationConnector active={phase >= 3} />
+
+        <AutomationNode
+          id="notify"
+          label="Notify team"
+          activeIds={activeIds}
+          currentId={currentId}
+          className="mx-auto max-w-[7.5rem]"
+        />
+      </div>
+
+      <AnimatePresence mode="wait">
+        {isComplete && (
+          <motion.p
+            key="complete"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.35 }}
+            className="mt-4 text-center text-[10px] font-medium text-emerald-300 sm:text-xs"
           >
-            <p className={`text-[10px] font-semibold whitespace-nowrap ${pulse >= i ? "text-emerald-300" : "text-slate-500"}`}>
-              {node.label}
-            </p>
-          </div>
-        </motion.div>
-      ))}
-      {pulse === AUTO_NODES.length - 1 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 1, 0] }}
-          transition={{ duration: 1 }}
-          className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-emerald-500/20 px-3 py-1 text-[10px] font-medium text-emerald-300"
-        >
-          ✓ Workflow completed in 1.2s
-        </motion.div>
-      )}
+            ✓ Workflow completed in 1.2s
+          </motion.p>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -328,8 +364,8 @@ function LLMDemo() {
         ))}
       </div>
       <div className="flex-1 rounded-xl border border-fuchsia-500/20 bg-[#0d0a1a] p-4 font-mono text-xs">
-        <p className="text-fuchsia-400/60">$ codanity.llm.route({"{"}model: &quot;{LLM_MODELS[modelIdx]}&quot;{"}"})</p>
-        <p className="mt-3 leading-relaxed text-slate-300">
+        <p className="break-all text-fuchsia-400/60">$ codanity.llm.route({"{"}model: &quot;{LLM_MODELS[modelIdx]}&quot;{"}"})</p>
+        <p className="mt-3 break-words leading-relaxed text-slate-300">
           {LLM_OUTPUT.slice(0, chars)}
           <motion.span
             className="inline-block h-3.5 w-1 bg-fuchsia-400"
@@ -398,8 +434,8 @@ export const AIShowcase: React.FC = () => {
           dark
         />
 
-        <motion.div className="mt-12 grid gap-6 lg:grid-cols-[280px_1fr] lg:gap-8" {...fadeInUp(0.1)}>
-          <div className="flex flex-row gap-2 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0">
+        <motion.div className="mt-12 grid min-w-0 gap-6 lg:grid-cols-[minmax(0,280px)_1fr] lg:gap-8" {...fadeInUp(0.1)}>
+          <div className="flex min-w-0 flex-row gap-2 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:flex-col lg:overflow-visible lg:pb-0">
             {DEMOS.map((demo) => {
               const Icon = demo.icon;
               const isActive = demo.id === active;
@@ -440,12 +476,12 @@ export const AIShowcase: React.FC = () => {
             })}
           </div>
 
-          <div className="relative">
+          <div className="relative min-w-0">
             <div className={`absolute -inset-px rounded-3xl bg-gradient-to-br ${activeMeta.color} opacity-30 blur-sm`} />
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0a0f1e]/90 p-5 backdrop-blur-xl sm:p-6 min-h-[300px]">
-              <div className="mb-4 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-violet-400" />
+            <div className="relative min-h-[300px] overflow-hidden rounded-3xl border border-white/10 bg-[#0a0f1e]/90 p-4 backdrop-blur-xl sm:p-6">
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+                <div className="flex min-w-0 flex-wrap items-center gap-2">
+                  <Sparkles className="h-4 w-4 shrink-0 text-violet-400" />
                   <span className="text-sm font-semibold text-white">{activeMeta.label}</span>
                   <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
                     Live demo
@@ -484,7 +520,7 @@ export const AIShowcase: React.FC = () => {
             </span>
           ))}
           <Link
-            href="/services"
+            href="/services?category=ai"
             className="inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-400 transition-colors hover:text-cyan-300"
           >
             Explore AI services

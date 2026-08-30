@@ -38,7 +38,7 @@ export const Features: FC<FeaturesProps> = ({ features }) => {
       >
         {STATS.map((stat) => (
           <div key={stat.label} className="text-center">
-            <p className="font-display text-3xl font-bold text-brand sm:text-4xl">
+            <p className="font-display text-2xl font-bold text-brand sm:text-3xl sm:text-4xl">
               <CountUp
                 end={stat.value}
                 suffix={stat.suffix}

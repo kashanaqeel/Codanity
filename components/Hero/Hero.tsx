@@ -85,7 +85,7 @@ export const Hero: React.FC = () => {
             </motion.div>
 
             <motion.h1
-              className="w-full font-display text-4xl font-bold leading-[1.15] tracking-tight text-ink sm:text-5xl lg:text-[3.35rem]"
+              className="w-full font-display text-3xl font-bold leading-[1.15] tracking-tight text-ink sm:text-5xl lg:text-[3.35rem]"
               variants={itemVariants}
             >
               <span className="block">We build</span>
@@ -102,33 +102,40 @@ export const Hero: React.FC = () => {
             </motion.p>
 
             <motion.div
-              className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row"
+              className="flex w-full max-w-sm flex-col items-stretch gap-3 lg:max-w-none lg:flex-row"
               variants={itemVariants}
             >
-              <Button href="/contacts" variant="primary" size="lg" icon={<ArrowRight className="h-4 w-4" />}>
+              <Button
+                href="/contacts"
+                variant="primary"
+                size="lg"
+                className="w-full justify-center"
+                icon={<ArrowRight className="h-4 w-4" />}
+              >
                 Start a Project
               </Button>
-              <Button href="/projects" variant="outline" size="lg">
+              <Button href="/projects" variant="outline" size="lg" className="w-full justify-center">
                 Explore Portfolio
               </Button>
             </motion.div>
 
             <motion.div
-              className="grid w-full max-w-md grid-cols-3 gap-4 rounded-2xl border border-slate-200/70 bg-white/70 p-4 backdrop-blur-sm"
+              className="grid w-full max-w-md grid-cols-3 gap-2 rounded-2xl border border-slate-200/70 bg-white/70 p-3 backdrop-blur-sm sm:gap-4 sm:p-4"
               variants={itemVariants}
             >
               {STATS.map((stat) => (
                 <div key={stat.label} className="text-center lg:text-left">
-                  <p className="font-display text-2xl font-bold text-brand">
+                  <p className="font-display text-xl font-bold text-brand sm:text-2xl">
                     <CountUp end={stat.value} suffix={stat.suffix} duration={2} enableScrollSpy scrollSpyOnce />
                   </p>
-                  <p className="text-[11px] text-ink-muted sm:text-xs">{stat.label}</p>
+                  <p className="mt-0.5 text-[10px] leading-tight text-ink-muted sm:text-xs">{stat.label}</p>
                 </div>
               ))}
             </motion.div>
           </motion.div>
 
           <motion.div
+            className="min-w-0 w-full max-w-full"
             initial={{ opacity: 0, y: 30, scale: 0.98 }}
             animate={ready ? { opacity: 1, y: 0, scale: 1 } : {}}
             transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}

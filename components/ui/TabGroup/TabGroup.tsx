@@ -16,7 +16,7 @@ export interface TabGroupProps {
 
 export const TabGroup: React.FC<TabGroupProps> = ({ tabs, activeTab, onChange }) => {
   return (
-    <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+    <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-2 sm:flex-wrap sm:justify-center sm:overflow-visible sm:pb-0 sm:gap-3">
       {tabs.map((tab) => {
         const Icon = tab.icon;
         const isActive = activeTab === tab.id;
@@ -26,7 +26,7 @@ export const TabGroup: React.FC<TabGroupProps> = ({ tabs, activeTab, onChange })
             key={tab.id}
             type="button"
             onClick={() => onChange(tab.id)}
-            className={`relative flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors duration-300 sm:px-5 sm:py-3 ${
+            className={`relative flex shrink-0 snap-start items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors duration-300 sm:px-5 sm:py-3 ${
               isActive ? "text-brand" : "text-ink-secondary hover:text-ink"
             }`}
           >
@@ -37,8 +37,8 @@ export const TabGroup: React.FC<TabGroupProps> = ({ tabs, activeTab, onChange })
                 transition={{ type: "spring", stiffness: 380, damping: 30 }}
               />
             )}
-            <Icon className="relative h-4 w-4" />
-            <span className="relative">{tab.label}</span>
+            <Icon className="relative h-4 w-4 shrink-0" />
+            <span className="relative whitespace-nowrap">{tab.label}</span>
           </button>
         );
       })}

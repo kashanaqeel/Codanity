@@ -62,7 +62,7 @@ export default function ProjectDetailPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-hero-radial">
         <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-40" />
-        <div className="relative mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+        <div className="relative mx-auto w-full min-w-0 max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-14">
           <motion.div {...fadeInUpSmall()}>
             <Link
               href="/projects"
@@ -73,8 +73,8 @@ export default function ProjectDetailPage() {
             </Link>
           </motion.div>
 
-          <div className="mt-8 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-            <motion.div className="space-y-5" {...fadeInUp(0.05)}>
+          <div className="mt-6 grid min-w-0 gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-10">
+            <motion.div className="min-w-0 space-y-4 sm:space-y-5" {...fadeInUp(0.05)}>
               <div className="flex flex-wrap gap-2">
                 <span className={`rounded-full px-3 py-1 text-xs font-semibold ${getProjectTypeColor(project.type)}`}>
                   {project.type}
@@ -89,20 +89,20 @@ export default function ProjectDetailPage() {
                 ))}
               </div>
 
-              <h1 className="font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl lg:text-6xl">
+              <h1 className="break-words font-display text-2xl font-bold tracking-tight text-ink sm:text-4xl lg:text-5xl">
                 {project.companyName}
               </h1>
-              <p className="max-w-2xl text-lg leading-relaxed text-ink-secondary">
+              <p className="break-words text-base leading-relaxed text-ink-secondary sm:text-lg">
                 {project.shortDescription}
               </p>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 {project.websiteLink && (
                   <a
                     href={project.websiteLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-primary"
+                    className="btn-primary w-full justify-center sm:w-auto"
                   >
                     Visit Live Site
                     <ExternalLink className="h-4 w-4" />
@@ -113,7 +113,7 @@ export default function ProjectDetailPage() {
                     href={project.githubLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-secondary"
+                    className="btn-secondary w-full justify-center sm:w-auto"
                   >
                     <Github className="h-4 w-4" />
                     Source Code
@@ -122,13 +122,13 @@ export default function ProjectDetailPage() {
               </div>
             </motion.div>
 
-            <motion.div className="card-surface overflow-hidden" {...fadeInUp(0.12)}>
-              <div className="relative aspect-[16/10]">
+            <motion.div className="card-surface min-w-0 overflow-hidden" {...fadeInUp(0.12)}>
+              <div className="relative aspect-[4/3] w-full bg-surface-subtle sm:aspect-[16/10]">
                 <Image
                   src={project.companyLogoImg}
                   alt={project.companyName}
                   fill
-                  className="object-cover object-top"
+                  className="object-contain p-2 sm:p-3"
                   sizes="(max-width: 1024px) 100vw, 45vw"
                   priority
                 />
@@ -138,22 +138,24 @@ export default function ProjectDetailPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        <div className="grid gap-10 lg:grid-cols-[280px_1fr]">
-          {/* Sticky sidebar */}
-          <motion.aside className="lg:sticky lg:top-28 lg:self-start" {...fadeInUp(0.1)}>
-            <div className="card-surface space-y-5 p-6">
+      <div className="mx-auto w-full min-w-0 max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
+        <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,280px)_minmax(0,1fr)] lg:gap-10">
+          {/* Sticky sidebar — after showcase on mobile */}
+          <motion.aside className="order-2 min-w-0 lg:order-none lg:sticky lg:top-28 lg:self-start" {...fadeInUp(0.1)}>
+            <div className="card-surface space-y-5 p-5 sm:p-6">
               <div>
                 <p className="text-xs font-medium uppercase tracking-wider text-ink-muted">Timeline</p>
-                <div className="mt-2 flex items-center gap-2 text-sm text-ink-secondary">
-                  <Calendar className="h-4 w-4 text-brand" />
-                  {formatDate(project.startDate)} – {formatDate(project.endDate)}
+                <div className="mt-2 flex flex-wrap items-start gap-2 text-sm leading-relaxed text-ink-secondary">
+                  <Calendar className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+                  <span className="break-words">
+                    {formatDate(project.startDate)} – {formatDate(project.endDate)}
+                  </span>
                 </div>
               </div>
 
               <div>
                 <div className="mb-3 flex items-center gap-2">
-                  <Tag className="h-4 w-4 text-brand" />
+                  <Tag className="h-4 w-4 shrink-0 text-brand" />
                   <p className="text-xs font-medium uppercase tracking-wider text-ink-muted">Tech Stack</p>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -170,14 +172,14 @@ export default function ProjectDetailPage() {
             </div>
           </motion.aside>
 
-          <div className="space-y-12">
+          <div className="order-1 min-w-0 space-y-10 sm:space-y-12 lg:order-none">
             {/* Interactive showcase */}
-            <motion.section {...fadeInUp(0.15)}>
-              <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">Product showcase</h2>
-              <p className="mt-2 text-ink-secondary">
+            <motion.section className="min-w-0" {...fadeInUp(0.15)}>
+              <h2 className="font-display text-xl font-bold text-ink sm:text-2xl lg:text-3xl">Product showcase</h2>
+              <p className="mt-2 break-words text-sm text-ink-secondary sm:text-base">
                 Browse sections, navigate screenshots, and open fullscreen to explore the work in detail.
               </p>
-              <div className="mt-8">
+              <div className="mt-6 sm:mt-8">
                 <ProjectShowcase
                   key={project.id}
                   pages={project.pagesInfoArr}
@@ -187,11 +189,11 @@ export default function ProjectDetailPage() {
             </motion.section>
 
             {/* Overview */}
-            <motion.section className="card-surface p-6 sm:p-8" {...fadeInUp(0.2)}>
-              <h2 className="font-display text-2xl font-bold text-ink">Project overview</h2>
+            <motion.section className="card-surface min-w-0 p-5 sm:p-8" {...fadeInUp(0.2)}>
+              <h2 className="font-display text-xl font-bold text-ink sm:text-2xl">Project overview</h2>
               <div className="mt-5 space-y-4">
                 {project.descriptionDetails.paragraphs.map((paragraph, index) => (
-                  <p key={index} className="leading-relaxed text-ink-secondary">
+                  <p key={index} className="break-words leading-relaxed text-ink-secondary">
                     {paragraph}
                   </p>
                 ))}
@@ -199,8 +201,8 @@ export default function ProjectDetailPage() {
             </motion.section>
 
             {/* Key features */}
-            <motion.section {...fadeInUp(0.25)}>
-              <h2 className="font-display text-2xl font-bold text-ink">What we delivered</h2>
+            <motion.section className="min-w-0" {...fadeInUp(0.25)}>
+              <h2 className="font-display text-xl font-bold text-ink sm:text-2xl">What we delivered</h2>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 {project.descriptionDetails.bullets.map((bullet, index) => (
                   <motion.div
@@ -209,10 +211,10 @@ export default function ProjectDetailPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
                     transition={{ duration: 0.4, delay: index * 0.05 }}
-                    className="card-surface flex gap-3 p-4"
+                    className="card-surface flex min-w-0 gap-3 p-4"
                   >
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
-                    <p className="text-sm leading-relaxed text-ink-secondary">{bullet}</p>
+                    <p className="min-w-0 break-words text-sm leading-relaxed text-ink-secondary">{bullet}</p>
                   </motion.div>
                 ))}
               </div>
@@ -222,38 +224,38 @@ export default function ProjectDetailPage() {
 
         {/* Prev / Next */}
         <motion.div
-          className="mt-16 grid gap-4 border-t border-slate-200/80 pt-10 sm:grid-cols-2"
+          className="mt-12 grid min-w-0 gap-4 border-t border-slate-200/80 pt-8 sm:mt-16 sm:grid-cols-2 sm:pt-10"
           {...fadeInUp(0.3)}
         >
           {prevProject ? (
             <Link
               href={`/projects/${prevProject.id}`}
-              className="card-surface group flex items-center gap-4 p-5 transition-all hover:border-brand/25"
+              className="card-surface group flex min-w-0 items-center gap-3 p-4 transition-all hover:border-brand/25 sm:gap-4 sm:p-5"
             >
-              <ArrowLeft className="h-5 w-5 text-brand transition-transform group-hover:-translate-x-1" />
-              <div>
+              <ArrowLeft className="h-5 w-5 shrink-0 text-brand transition-transform group-hover:-translate-x-1" />
+              <div className="min-w-0">
                 <p className="text-xs text-ink-muted">Previous project</p>
-                <p className="font-display font-semibold text-ink group-hover:text-brand">
+                <p className="break-words font-display font-semibold text-ink group-hover:text-brand">
                   {prevProject.companyName}
                 </p>
               </div>
             </Link>
           ) : (
-            <div />
+            <div className="hidden sm:block" />
           )}
 
           {nextProject && (
             <Link
               href={`/projects/${nextProject.id}`}
-              className="card-surface group flex items-center justify-end gap-4 p-5 text-right transition-all hover:border-brand/25"
+              className="card-surface group flex min-w-0 items-center justify-end gap-3 p-4 text-right transition-all hover:border-brand/25 sm:gap-4 sm:p-5"
             >
-              <div>
+              <div className="min-w-0">
                 <p className="text-xs text-ink-muted">Next project</p>
-                <p className="font-display font-semibold text-ink group-hover:text-brand">
+                <p className="break-words font-display font-semibold text-ink group-hover:text-brand">
                   {nextProject.companyName}
                 </p>
               </div>
-              <ArrowRight className="h-5 w-5 text-brand transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="h-5 w-5 shrink-0 text-brand transition-transform group-hover:translate-x-1" />
             </Link>
           )}
         </motion.div>

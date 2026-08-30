@@ -73,6 +73,7 @@ const CapabilityCard: React.FC<{
       type="button"
       onMouseEnter={() => onHover(item.id)}
       onMouseLeave={() => onHover(null)}
+      onClick={() => onHover(isActive ? null : item.id)}
       onFocus={() => onHover(item.id)}
       onBlur={() => onHover(null)}
       initial={{ opacity: 0, y: 10 }}
@@ -111,25 +112,26 @@ export const HeroVisual: React.FC = () => {
   const visibleLines = TERMINAL_LINES.slice(0, lineIndex);
 
   return (
-    <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
-      <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-brand/10 via-transparent to-violet-500/10 blur-2xl" />
+    <div className="relative mx-auto w-full min-w-0 max-w-xl overflow-hidden lg:max-w-none">
+      <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-gradient-to-br from-brand/10 via-transparent to-violet-500/10 blur-2xl" />
 
-      <div className="card-surface relative overflow-hidden rounded-3xl border-slate-200/80 p-5 shadow-card sm:p-6">
+      <div className="card-surface relative overflow-hidden rounded-3xl border-slate-200/80 p-4 shadow-card sm:p-6">
         {/* Header */}
-        <div className="mb-5 flex items-center justify-between rounded-2xl border border-slate-200/60 bg-surface-subtle px-4 py-3">
-          <div className="flex items-center gap-2">
-            <Rocket className="h-4 w-4 text-brand" />
-            <span className="text-xs font-semibold text-ink">Delivery Pipeline</span>
+        <div className="mb-5 flex flex-col gap-2 rounded-2xl border border-slate-200/60 bg-surface-subtle px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4">
+          <div className="flex min-w-0 items-center gap-2">
+            <Rocket className="h-4 w-4 shrink-0 text-brand" />
+            <span className="truncate text-xs font-semibold text-ink">Delivery Pipeline</span>
           </div>
-          <span className="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold text-emerald-600">
+          <span className="flex w-fit shrink-0 items-center gap-1 self-start rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold text-emerald-600 sm:self-auto">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-            Build in progress
+            <span className="hidden sm:inline">Build in progress</span>
+            <span className="sm:hidden">Live</span>
           </span>
         </div>
 
         {/* Terminal — centered, full width */}
         <motion.div
-          className="relative mx-auto mb-5 max-w-sm"
+          className="relative mx-auto mb-5 w-full max-w-sm min-w-0"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
@@ -142,19 +144,19 @@ export const HeroVisual: React.FC = () => {
               <span className="ml-1 text-[10px] text-slate-400">delivery.ts</span>
             </div>
             <div className="h-[7.5rem] overflow-hidden p-3 font-mono text-[10px] leading-relaxed sm:h-[8rem] sm:text-[11px]">
-              <div className="space-y-1.5">
+              <div className="space-y-1.5 break-all">
                 {visibleLines.map((line, i) => (
                   <motion.p
                     key={i}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className={
+                    className={`break-words ${
                       line.type === "cmd"
                         ? "text-sky-300/90"
                         : line.text.includes("ai") || line.text.includes("RAG")
                         ? "text-violet-300/90"
                         : "text-emerald-400/80"
-                    }
+                    }`}
                   >
                     {line.text}
                   </motion.p>
@@ -168,9 +170,9 @@ export const HeroVisual: React.FC = () => {
             </div>
           </div>
 
-          <div className="absolute -bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-brand/20 bg-white px-3 py-1 shadow-soft">
-            <Sparkles className="h-3.5 w-3.5 text-brand" />
-            <span className="text-[11px] font-semibold text-ink">Ship with confidence</span>
+          <div className="absolute -bottom-3 left-1/2 flex max-w-[calc(100%-0.5rem)] -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full border border-brand/20 bg-white px-3 py-1 shadow-soft">
+            <Sparkles className="h-3.5 w-3.5 shrink-0 text-brand" />
+            <span className="truncate text-[11px] font-semibold text-ink">Ship with confidence</span>
           </div>
         </motion.div>
 

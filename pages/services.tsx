@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { Code, Server, Smartphone, Globe, CheckCircle2, Bot, BrainCircuit, Workflow } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import CountUp from "react-countup";
@@ -100,11 +101,45 @@ const stats = [
 const engineeringServices = services.filter((s) => s.category === "engineering");
 const aiServices = services.filter((s) => s.category === "ai");
 
+const DEFAULT_SERVICE_ID = services[0].id;
+const DEFAULT_AI_SERVICE_ID = aiServices[0]?.id ?? "ai-chatbots";
+
+const resolveServiceId = (
+  serviceParam: string | string[] | undefined,
+  categoryParam: string | string[] | undefined
+): string => {
+  const service = Array.isArray(serviceParam) ? serviceParam[0] : serviceParam;
+  const category = Array.isArray(categoryParam) ? categoryParam[0] : categoryParam;
+
+  if (service && services.some((s) => s.id === service)) {
+    return service;
+  }
+
+  if (category === "ai") {
+    return DEFAULT_AI_SERVICE_ID;
+  }
+
+  return DEFAULT_SERVICE_ID;
+};
+
 export default function ServicesPage() {
-  const [activeId, setActiveId] = useState(services[0].id);
+  const router = useRouter();
+  const [activeId, setActiveId] = useState(DEFAULT_SERVICE_ID);
   const { fadeInUp } = useAnimation();
   const active = services.find((s) => s.id === activeId) ?? services[0];
   const ActiveIcon = active.icon;
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    setActiveId(resolveServiceId(router.query.service, router.query.category));
+  }, [router.isReady, router.query.service, router.query.category]);
+
+  const selectService = (serviceId: string) => {
+    setActiveId(serviceId);
+    router.replace({ pathname: "/services", query: { service: serviceId } }, undefined, {
+      shallow: true,
+    });
+  };
 
   const renderServiceButton = (service: Service) => {
     const Icon = service.icon;
@@ -114,8 +149,8 @@ export default function ServicesPage() {
       <button
         key={service.id}
         type="button"
-        onClick={() => setActiveId(service.id)}
-        className={`relative rounded-2xl border px-4 py-4 text-left transition-all duration-300 ${
+        onClick={() => selectService(service.id)}
+        className={`relative shrink-0 rounded-2xl border px-4 py-4 text-left transition-all duration-300 lg:shrink lg:w-full ${
           isActive
             ? service.category === "ai"
               ? "border-violet-500/25 bg-violet-500/5 shadow-glow-ai"
@@ -164,7 +199,7 @@ export default function ServicesPage() {
         >
           {stats.map((stat) => (
             <div key={stat.label} className="text-center">
-              <p className="font-display text-3xl font-bold text-brand">
+              <p className="font-display text-2xl font-bold text-brand sm:text-3xl">
                 <CountUp end={stat.value} suffix={stat.suffix} duration={2} enableScrollSpy scrollSpyOnce />
               </p>
               <p className="mt-1 text-xs text-ink-secondary sm:text-sm">{stat.label}</p>
@@ -172,17 +207,52 @@ export default function ServicesPage() {
           ))}
         </motion.div>
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-[300px_1fr]">
-          <motion.div className="flex flex-col gap-2" {...fadeInUp(0.1)}>
-            <p className="mb-1 px-1 text-xs font-semibold uppercase tracking-wider text-ink-muted">
-              Product Engineering
-            </p>
-            {engineeringServices.map(renderServiceButton)}
-
-            <p className="mb-1 mt-4 px-1 text-xs font-semibold uppercase tracking-wider text-ink-muted">
-              AI & Automation
-            </p>
-            {aiServices.map(renderServiceButton)}
+        <div className="mt-14 grid min-w-0 gap-8 lg:grid-cols-[minmax(0,300px)_1fr]">
+          <motion.div
+            className="min-w-0 max-w-full overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:overflow-visible lg:pb-0"
+            {...fadeInUp(0.1)}
+          >
+            <div className="hidden lg:contents">
+              <p className="mb-1 px-1 text-xs font-semibold uppercase tracking-wider text-ink-muted">
+                Product Engineering
+              </p>
+              {engineeringServices.map(renderServiceButton)}
+              <p className="mb-1 mt-4 px-1 text-xs font-semibold uppercase tracking-wider text-ink-muted">
+                AI & Automation
+              </p>
+              {aiServices.map(renderServiceButton)}
+            </div>
+            <div className="flex w-max min-w-full gap-2 lg:hidden">
+              {services.map((service) => {
+                const Icon = service.icon;
+                const isActive = service.id === activeId;
+                return (
+                  <button
+                    key={service.id}
+                    type="button"
+                    onClick={() => selectService(service.id)}
+                    className={`flex shrink-0 snap-start flex-col items-center gap-2 rounded-2xl border px-4 py-3 transition-all duration-300 ${
+                      isActive
+                        ? service.category === "ai"
+                          ? "border-violet-500/25 bg-violet-500/5 shadow-glow-ai"
+                          : "border-brand/25 bg-brand-muted shadow-soft"
+                        : "border-slate-200/70 bg-white"
+                    }`}
+                  >
+                    <div
+                      className={`rounded-xl bg-gradient-to-br p-2 ${
+                        isActive ? `${service.gradient} text-white` : "bg-surface-muted text-brand"
+                      }`}
+                    >
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <span className="max-w-[5.5rem] text-center text-[10px] font-semibold leading-tight text-ink line-clamp-2">
+                      {service.title}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </motion.div>
 
           <motion.div className="card-surface relative overflow-hidden p-6 sm:p-8" {...fadeInUp(0.15)}>

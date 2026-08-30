@@ -12,11 +12,11 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="relative flex min-h-screen flex-col">
+    <div className="relative flex min-h-screen flex-col overflow-x-hidden">
       <ScrollProgress />
       <CursorGlow />
       <Navbar navigations={navigations} />
-      <div className="relative z-[2] flex-grow pt-16 lg:pt-[4.25rem]">
+      <div className="relative z-[2] min-w-0 flex-grow overflow-x-hidden pt-16 lg:pt-[4.25rem]">
         <PageTransition>{children}</PageTransition>
       </div>
       <Footer navigations={navigations} otherNavigations={otherNavigations} socials={socials} />
