@@ -14,8 +14,6 @@
     "@types/node": "18.15.11",
     "@types/react": "18.0.31",
     "@types/react-dom": "18.0.11",
-    "dotenv": "^16.4.5",
-    "emailjs-com": "^3.2.0",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
     "framer-motion": "^12.23.12",
@@ -32,7 +30,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/dotenv": "^8.2.3",
     "@types/nodemailer": "^6.4.16",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
