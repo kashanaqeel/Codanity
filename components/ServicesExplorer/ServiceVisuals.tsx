@@ -13,6 +13,20 @@ import {
 const STAGE =
   "relative flex h-[260px] items-center justify-center overflow-hidden rounded-2xl bg-[#0a0f1e] p-4 sm:h-[300px] sm:p-6";
 
+const CHATBOT_MSGS = [
+  { role: "user", text: "Summarize our Q3 report" },
+  { role: "ai", text: "Revenue up 24%. Top tier: Enterprise." },
+] as const;
+
+const RAG_STEPS = [
+  { icon: FileText, label: "Docs" },
+  { icon: Zap, label: "Embed" },
+  { icon: Database, label: "Index" },
+  { icon: Sparkles, label: "Answer" },
+] as const;
+
+const AUTOMATION_NODES = ["Trigger", "Enrich", "Route", "Notify"] as const;
+
 function FlowArrow({ active }: { active: boolean }) {
   return (
     <motion.div
@@ -229,13 +243,9 @@ function MobileVisual() {
 
 function ChatbotVisual() {
   const [count, setCount] = useState(0);
-  const msgs = [
-    { role: "user", text: "Summarize our Q3 report" },
-    { role: "ai", text: "Revenue up 24%. Top tier: Enterprise." },
-  ];
 
   useEffect(() => {
-    const t = setInterval(() => setCount((c) => (c < msgs.length ? c + 1 : 0)), 2000);
+    const t = setInterval(() => setCount((c) => (c < CHATBOT_MSGS.length ? c + 1 : 0)), 2000);
     return () => clearInterval(t);
   }, []);
 
@@ -251,7 +261,7 @@ function ChatbotVisual() {
           </span>
         </div>
         <div className="flex flex-1 flex-col justify-end gap-2 overflow-hidden">
-          {msgs.slice(0, count).map((m, i) => (
+          {CHATBOT_MSGS.slice(0, count).map((m, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 8 }}
@@ -271,22 +281,16 @@ function ChatbotVisual() {
 
 function RAGVisual() {
   const [step, setStep] = useState(0);
-  const steps = [
-    { icon: FileText, label: "Docs" },
-    { icon: Zap, label: "Embed" },
-    { icon: Database, label: "Index" },
-    { icon: Sparkles, label: "Answer" },
-  ];
 
   useEffect(() => {
-    const t = setInterval(() => setStep((s) => (s + 1) % steps.length), 1500);
+    const t = setInterval(() => setStep((s) => (s + 1) % RAG_STEPS.length), 1500);
     return () => clearInterval(t);
   }, []);
 
   return (
     <div className={STAGE}>
       <div className="flex w-full max-w-md items-center justify-between gap-1">
-        {steps.map((s, i) => {
+        {RAG_STEPS.map((s, i) => {
           const Icon = s.icon;
           const isActive = i === step;
           const isPast = i < step;
@@ -307,7 +311,7 @@ function RAGVisual() {
                   {s.label}
                 </span>
               </motion.div>
-              {i < steps.length - 1 && (
+              {i < RAG_STEPS.length - 1 && (
                 <motion.div
                   className="h-px flex-1 bg-white/10"
                   animate={{ backgroundColor: isPast ? "rgba(56,189,248,0.5)" : "rgba(255,255,255,0.1)" }}
@@ -323,17 +327,16 @@ function RAGVisual() {
 
 function AutomationVisual() {
   const [phase, setPhase] = useState(0);
-  const nodes = ["Trigger", "Enrich", "Route", "Notify"];
 
   useEffect(() => {
-    const t = setInterval(() => setPhase((p) => (p + 1) % (nodes.length + 1)), 1100);
+    const t = setInterval(() => setPhase((p) => (p + 1) % (AUTOMATION_NODES.length + 1)), 1100);
     return () => clearInterval(t);
   }, []);
 
   return (
     <div className={STAGE}>
       <div className="flex w-full max-w-[11rem] flex-col items-center gap-1 sm:max-w-xs">
-        {nodes.map((node, i) => (
+        {AUTOMATION_NODES.map((node, i) => (
           <React.Fragment key={node}>
             <motion.div
               animate={{
