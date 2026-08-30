@@ -350,7 +350,7 @@ function AutomationVisual() {
                 {node}
               </p>
             </motion.div>
-            {i < nodes.length - 1 && (
+            {i < AUTOMATION_NODES.length - 1 && (
               <motion.div
                 className="h-3 w-px"
                 animate={{ backgroundColor: phase > i ? "rgba(52,211,153,0.6)" : "rgba(255,255,255,0.1)" }}
