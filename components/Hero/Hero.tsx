@@ -1,281 +1,145 @@
-import React, { useRef, useEffect, useState } from "react";
-import { ArrowRight, Database, Layout, Smartphone, Globe, LucideIcon } from "lucide-react";
-import Link from "next/link";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import CountUp from "react-countup";
-import { useSpring, animated, useTrail, config } from "@react-spring/web";
+import { Button } from "@/components";
+import HeroVisual from "./HeroVisual";
+import RotatingHeadline from "./RotatingHeadline";
+import TechMarquee from "./TechMarquee";
+import FloatingParticles from "../effects/FloatingParticles";
+import NeuralGrid from "../effects/NeuralGrid";
 
-interface CTAButtonProps {
-  children: React.ReactNode;
-  primary?: boolean;
-  onClick?: () => void;
-}
-
-interface StatItemProps {
-  value: number;
-  label: string;
-  suffix?: string;
-}
-
-interface TechStackCardProps {
-  Icon: LucideIcon;
-  title: string;
-  description: string;
-  index?: number;
-}
-
-type TechStack = {
-  icon: LucideIcon;
-  label: string;
-  description: string;
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
+  },
 };
 
-// Constants
-const TECH_STACKS: TechStack[] = [
-  {
-    icon: Layout,
-    label: "Frontend",
-    description: "Next.js, React"
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
   },
-  {
-    icon: Database,
-    label: "Backend",
-    description: "Node.js, Django"
-  },
-  {
-    icon: Smartphone,
-    label: "Mobile",
-    description: "React Native"
-  },
-  {
-    icon: Globe,
-    label: "Full Stack",
-    description: "MERN Stack"
-  }
+};
+
+const STATS = [
+  { value: 20, suffix: "+", label: "Projects delivered" },
+  { value: 94, suffix: "%", label: "Client satisfaction" },
+  { value: 5, suffix: "+", label: "Years experience" },
 ];
- 
-const STATS: StatItemProps[] = [
-  { value: 20, label: "Projects", suffix: "+" },
-  { value: 94, label: "Client Satisfaction", suffix: "%" }
-];
-
-// Components
-const TechStackCard: React.FC<TechStackCardProps> = ({ Icon, title, description, index = 0 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  
-  // Create smooth wave effect with gentle elevation
-  const waveSpring = useSpring({
-    from: { y: 0, scale: 1, rotate: 0, shadow: 0 },
-    to: async (next) => {
-      while (true) {
-        // Rise up with gentle scale and shadow
-        await next({ y: -15, scale: 1.04, rotate: 2, shadow: 8 });
-        await new Promise(resolve => setTimeout(resolve, 1800 + index * 250));
-        // Gentle descent
-        await next({ y: -8, scale: 1.02, rotate: -1, shadow: 4 });
-        await new Promise(resolve => setTimeout(resolve, 1800 + index * 250));
-        // Return to base with slight bounce
-        await next({ y: 0, scale: 1, rotate: 0, shadow: 0 });
-        await new Promise(resolve => setTimeout(resolve, 1800 + index * 250));
-        // Subtle lift
-        await next({ y: -5, scale: 1.01, rotate: 1, shadow: 2 });
-        await new Promise(resolve => setTimeout(resolve, 1800 + index * 250));
-      }
-    },
-    config: config.gentle,
-    loop: true,
-  });
-
-  const tapSpring = useSpring({
-    scale: 1,
-    config: config.wobbly,
-  });
-
-  return (
-    <animated.div 
-      className="bg-white p-4 sm:p-6 rounded-xl shadow-lg cursor-pointer"
-      style={waveSpring}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onMouseDown={() => {
-        tapSpring.scale.set(0.95);
-        setTimeout(() => tapSpring.scale.set(1), 150);
-      }}
-    >
-      <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-[#5128a0] mb-2" />
-      <h3 className="font-semibold text-sm sm:text-base">{title}</h3>
-      <p className="text-xs sm:text-sm text-gray-600">{description}</p>
-    </animated.div>
-  );
-};
-
-const StatItem: React.FC<StatItemProps> = ({ value, label, suffix }) => (
-  <div className="text-center">
-    <p className="text-xl sm:text-2xl font-bold text-gray-900">
-      <CountUp
-        end={value}
-        suffix={suffix}
-        duration={2.5}
-        delay={0.5}
-        enableScrollSpy={true}
-        scrollSpyOnce={true}
-      />
-    </p>
-    <p className="text-xs sm:text-sm text-gray-600">{label}</p>
-  </div>
-);
-
-const HeroImageDesktop: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Create staggered animations for tech stack cards
-  const trail = useTrail(TECH_STACKS.length, {
-    from: { opacity: 0, y: 30, scale: 0.9 },
-    to: isVisible ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.9 },
-    config: config.gentle,
-    delay: 300,
-  });
-
-  // Container animation
-  const containerSpring = useSpring({
-    from: { opacity: 0, x: 50 },
-    to: isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 },
-    config: config.gentle,
-    delay: 100,
-  });
-
-  return (
-    <animated.div 
-      className="relative hidden lg:block w-1/2"
-      ref={containerRef}
-      style={containerSpring}
-    >
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-10 rounded-3xl" />
-      <div className="relative p-8 flex items-center justify-center">
-        <div className="grid grid-cols-2 gap-8">
-          {trail.map((props, index) => (
-            <animated.div
-              key={index}
-              style={props}
-            >
-              <TechStackCard
-                Icon={TECH_STACKS[index].icon}
-                title={TECH_STACKS[index].label}
-                description={TECH_STACKS[index].description}
-                index={index}
-              />
-            </animated.div>
-          ))}
-        </div>
-      </div>
-    </animated.div>
-  );
-};
-
-const HeroImageMobile: React.FC = () => {
-  // Mobile view no longer shows tech stacks
-  return null;
-};
-
-const CTAButton: React.FC<CTAButtonProps> = ({ children, primary = false, onClick }) => (
-  <button 
-    onClick={onClick}
-    className={`inline-flex items-center justify-center gap-2 w-full sm:w-auto ${
-      primary 
-        ? "bg-[#5128a0] hover:bg-[#3e217e] text-white" 
-        : "bg-white hover:bg-gray-50 text-gray-800 border-2 border-gray-200"
-    } px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium transition-colors text-sm sm:text-base`}
-  >
-    {children}
-    {primary && <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />}
-  </button>
-);
 
 export const Hero: React.FC = () => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 120, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 120, damping: 20 });
+  const springXSlow = useSpring(mouseX, { stiffness: 80, damping: 18 });
+  const springYSlow = useSpring(mouseY, { stiffness: 80, damping: 18 });
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    setReady(true);
+  }, []);
+
+  const handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left - rect.width / 2) / 20;
+    const y = (event.clientY - rect.top - rect.height / 2) / 20;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
   return (
-    <div className="bg-white w-full min-h-[calc(100vh-4rem)] pt-8 lg:pt-12">
-      <div className="min-h-[calc(100vh-4rem)] flex flex-col-reverse lg:flex-row items-center justify-center max-w-6xl mx-auto gap-6 sm:gap-8 md:gap-12 lg:gap-16 px-4 sm:px-6 lg:px-8 py-8 lg:py-0">
-        <motion.div 
-          className="w-full lg:w-1/2 flex flex-col gap-4 sm:gap-6 text-center lg:text-start"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-        >
-          <motion.div 
-            className="inline-flex items-center gap-2 bg-blue-50 text-[#5128a0] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm mx-auto lg:mx-0"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, delay: 0.05 }}
+    <section
+      className="relative isolate overflow-hidden bg-hero-radial"
+      onMouseMove={handleMouseMove}
+    >
+      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-50" />
+      <NeuralGrid />
+      <FloatingParticles />
+
+      <motion.div
+        className="mesh-orb -left-24 top-20 h-72 w-72 bg-brand/20"
+        style={{ x: springX, y: springY }}
+      />
+      <motion.div
+        className="mesh-orb -right-16 bottom-10 h-64 w-64 bg-blue-400/15"
+        style={{ x: springXSlow, y: springYSlow }}
+      />
+
+      <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+          <motion.div
+            className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left"
+            initial="hidden"
+            animate={ready ? "visible" : "hidden"}
+            variants={containerVariants}
           >
-            Full-Stack Development Solutions
+            <motion.div className="section-badge" variants={itemVariants}>
+              <Sparkles className="h-4 w-4" />
+              Full-Stack Development Partner
+            </motion.div>
+
+            <motion.h1
+              className="w-full font-display text-4xl font-bold leading-[1.15] tracking-tight text-ink sm:text-5xl lg:text-[3.35rem]"
+              variants={itemVariants}
+            >
+              <span className="block">We build</span>
+              <RotatingHeadline />
+            </motion.h1>
+
+            <motion.p
+              className="max-w-xl text-base leading-relaxed text-ink-secondary sm:text-lg"
+              variants={itemVariants}
+            >
+              Codanity partners with startups and growing businesses to design, engineer, and ship
+              digital products — from web and mobile platforms to AI chatbots, voice agents, RAG systems, and
+              intelligent automations when the use case calls for it.
+            </motion.p>
+
+            <motion.div
+              className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row"
+              variants={itemVariants}
+            >
+              <Button href="/contacts" variant="primary" size="lg" icon={<ArrowRight className="h-4 w-4" />}>
+                Start a Project
+              </Button>
+              <Button href="/projects" variant="outline" size="lg">
+                Explore Portfolio
+              </Button>
+            </motion.div>
+
+            <motion.div
+              className="grid w-full max-w-md grid-cols-3 gap-4 rounded-2xl border border-slate-200/70 bg-white/70 p-4 backdrop-blur-sm"
+              variants={itemVariants}
+            >
+              {STATS.map((stat) => (
+                <div key={stat.label} className="text-center lg:text-left">
+                  <p className="font-display text-2xl font-bold text-brand">
+                    <CountUp end={stat.value} suffix={stat.suffix} duration={2} enableScrollSpy scrollSpyOnce />
+                  </p>
+                  <p className="text-[11px] text-ink-muted sm:text-xs">{stat.label}</p>
+                </div>
+              ))}
+            </motion.div>
           </motion.div>
-          
-          <motion.h1 
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center lg:text-start text-gray-900 leading-tight"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
+
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.98 }}
+            animate={ready ? { opacity: 1, y: 0, scale: 1 } : {}}
+            transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            Bringing Your
-            <span className="text-[#5128a0]"> Digital Vision</span> 
-            <div className="mt-0">to Life</div>
-          </motion.h1>
-          
-          <motion.h4 
-            className="text-base sm:text-lg text-gray-600 w-full lg:w-4/5 mx-auto lg:mx-0 text-center lg:text-start leading-relaxed"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.15 }}
-          >
-            Expert development services across Next.js, MERN Stack, Django, and Mobile platforms. 
-            We transform your ideas into powerful, scalable solutions.
-          </motion.h4>
-          
-          <motion.div 
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
-          >
-            <Link href="/contacts" className="w-full sm:w-auto">
-              <CTAButton primary>
-                Get Started
-              </CTAButton>
-            </Link>
-            <Link href='/projects' className="w-full sm:w-auto">
-              <CTAButton>
-                View Projects
-              </CTAButton>
-            </Link>
-            <Link href='/aboutUs' className="w-full sm:w-auto">
-              <CTAButton>
-                Learn More
-              </CTAButton>
-            </Link>
+            <HeroVisual />
           </motion.div>
-        </motion.div>
-        
-        <HeroImageDesktop />
+        </div>
+
+        <TechMarquee />
       </div>
-    </div>
+    </section>
   );
 };
 

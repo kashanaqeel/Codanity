@@ -2,140 +2,72 @@ import React, { FC } from "react";
 import { Feature, type Feature as FeatureType } from "./Feature";
 import { motion } from "framer-motion";
 import { useAnimation } from "@/hooks";
-import { Section } from "@/components";
+import { Section, SectionHeader } from "@/components";
 import CountUp from "react-countup";
 
 export interface FeaturesProps {
   features: FeatureType[];
 }
 
+const STATS = [
+  { value: 5, suffix: "+", label: "Years Experience" },
+  { value: 20, suffix: "+", label: "Projects Delivered" },
+  { value: 94, suffix: "%", label: "Client Satisfaction" },
+  { value: 24, suffix: "/7", label: "Support Available" },
+];
+
 export const Features: FC<FeaturesProps> = ({ features }) => {
   const { fadeInUp } = useAnimation();
 
   return (
-    <Section background="bg-gradient-to-br from-[#f4f5f7] via-white to-[#f8fafc]" padding="SECTION" maxWidth="MEDIUM" animate={false}>
-      {/* Enhanced Header Section */}
-      <motion.div 
-        className="flex flex-col items-center text-center gap-8 mt-8 lg:mt-14 relative"
-        {...fadeInUp()}
+    <Section background="bg-white" padding="SECTION" maxWidth="LARGE" animate={false}>
+      <SectionHeader
+        badge="Why Codanity"
+        title={
+          <>
+            Engineering excellence,{" "}
+            <span className="gradient-text">delivered with care</span>
+          </>
+        }
+        subtitle="Modern technology, thoughtful design, and reliable execution — with AI capabilities woven in when your product needs them."
+      />
+
+      <motion.div
+        className="mt-12 grid grid-cols-2 gap-4 rounded-2xl border border-slate-200/70 bg-surface-subtle p-6 sm:grid-cols-4 sm:gap-6 sm:p-8 lg:mt-16"
+        {...fadeInUp(0.15)}
       >
-        <motion.div 
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-[#5128a0]/10 to-blue-500/10 text-[#5128a0] px-4 py-2 rounded-full text-sm font-medium border border-[#5128a0]/20"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <span className="w-2 h-2 bg-[#5128a0] rounded-full animate-pulse"></span>
-          Trusted by 20+ Companies
-        </motion.div>
-        
-        <motion.h2 
-          className="text-4xl lg:text-5xl font-bold text-center leading-tight"
-          style={{ lineHeight: '1.1' }}
-          {...fadeInUp(0.1)}
-        >
-          <span className="bg-gradient-to-r from-gray-900 via-[#5128a0] to-gray-900 bg-clip-text text-transparent">
-            Our Core Strengths
-          </span>
-        </motion.h2>
-        
-        <motion.h4 
-          className="text-gray-600 w-full max-w-4xl mx-auto text-center text-lg leading-relaxed"
-          {...fadeInUp(0.2)}
-        >
-          Discover what sets us apart in the world of software development. 
-          Our expertise spans across cutting-edge technologies, delivering 
-          <span className="text-[#5128a0] font-semibold"> innovative, scalable, and high-performance solutions</span> that drive business growth.
-        </motion.h4>
-        
-        {/* Stats Row */}
-        <motion.div 
-          className="flex flex-wrap justify-center gap-8 mt-8 pt-8 border-t border-gray-200/50"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          <div className="text-center">
-            <div className="text-2xl font-bold text-[#5128a0]">
+        {STATS.map((stat) => (
+          <div key={stat.label} className="text-center">
+            <p className="font-display text-3xl font-bold text-brand sm:text-4xl">
               <CountUp
-                end={5}
-                suffix="+"
-                duration={2.5}
-                delay={0.5}
-                enableScrollSpy={true}
-                scrollSpyOnce={true}
+                end={stat.value}
+                suffix={stat.suffix}
+                duration={2.2}
+                enableScrollSpy
+                scrollSpyOnce
               />
-            </div>
-            <div className="text-sm text-gray-500">Years Experience</div>
+            </p>
+            <p className="mt-1 text-xs text-ink-secondary sm:text-sm">{stat.label}</p>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-[#5128a0]">
-              <CountUp
-                end={20}
-                suffix="+"
-                duration={2.5}
-                delay={0.5}
-                enableScrollSpy={true}
-                scrollSpyOnce={true}
-              />
-            </div>
-            <div className="text-sm text-gray-500">Projects Delivered</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-[#5128a0]">
-              <CountUp
-                end={94}
-                suffix="%"
-                duration={2.5}
-                delay={0.5}
-                enableScrollSpy={true}
-                scrollSpyOnce={true}
-              />
-            </div>
-            <div className="text-sm text-gray-500">Client Satisfaction</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-[#5128a0]">
-              <CountUp
-                end={24}
-                suffix="/7"
-                duration={2.5}
-                delay={0.5}
-                enableScrollSpy={true}
-                scrollSpyOnce={true}
-              />
-            </div>
-            <div className="text-sm text-gray-500">Support Available</div>
-          </div>
-        </motion.div>
+        ))}
       </motion.div>
-      
-      {/* Enhanced Features Grid */}
-      <motion.div 
-        className="mt-20 lg:mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 justify-items-center"
-        {...fadeInUp(0.3)}
+
+      <motion.div
+        className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mt-20 lg:grid-cols-4 lg:gap-8"
+        {...fadeInUp(0.2)}
       >
         {features?.map((feature, index) => (
           <motion.div
             key={feature.id}
-            className="w-full max-w-sm group"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ 
-              duration: 0.6, 
-              delay: 0.4 + index * 0.1,
-              ease: "easeOut"
-            }}
-            whileHover={{ 
-              y: -8,
-              transition: { duration: 0.3, ease: "easeOut" }
-            }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
             <Feature feature={feature} index={index} />
           </motion.div>
         ))}
       </motion.div>
-      
     </Section>
   );
 };

@@ -1,3 +1,87 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-surface-subtle text-ink font-sans;
+  }
+
+  ::selection {
+    @apply bg-brand/20 text-brand-dark;
+  }
+}
+
+@layer components {
+  .section-badge {
+    @apply inline-flex items-center gap-2 rounded-full border border-brand/15 bg-brand-muted px-4 py-1.5 text-sm font-medium text-brand;
+  }
+
+  .section-title {
+    @apply font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl lg:text-5xl;
+  }
+
+  .section-subtitle {
+    @apply mx-auto max-w-2xl text-base leading-relaxed text-ink-secondary sm:text-lg;
+  }
+
+  .glass-nav {
+    @apply border-b border-white/60 bg-white/80 backdrop-blur-xl;
+  }
+
+  .glass-nav-scrolled {
+    @apply border-slate-200/80 bg-white/90 shadow-nav;
+  }
+
+  .card-surface {
+    @apply rounded-2xl border border-slate-200/70 bg-white shadow-soft transition-all duration-300 ease-smooth;
+  }
+
+  .card-surface:hover {
+    @apply border-brand/20 shadow-card-hover;
+  }
+
+  .gradient-text {
+    @apply text-brand;
+  }
+
+  .gradient-text-ai {
+    @apply text-brand;
+  }
+
+  .ai-card {
+    @apply rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl transition-all duration-300;
+  }
+
+  .ai-card:hover {
+    @apply border-white/20 bg-white/[0.07] shadow-glow-ai;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-white shadow-soft transition-all duration-300 ease-smooth hover:bg-brand-dark hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-ink shadow-soft transition-all duration-300 ease-smooth hover:border-brand/30 hover:bg-brand-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/30 focus-visible:ring-offset-2;
+  }
+
+  .mesh-orb {
+    @apply pointer-events-none absolute rounded-full blur-3xl;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .noise-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+}

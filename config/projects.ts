@@ -2,13 +2,133 @@ import { ValidCategory, ValidExpType, ValidSkills, ProjectsInterface, PagesInfoI
 
 export const Projects: ProjectsInterface[] = [
   {
+    id: "satoon",
+    companyName: "SatoonWear",
+    type: "Professional",
+    category: ["Full Stack", "Web Dev", "UI/UX"],
+    shortDescription:
+      "Built a full-featured Pakistani e-commerce boutique for clothing and jewellery with product catalogues, variant selection, local payment options, and an AI stylist chat experience.",
+    websiteLink: "https://satoonwear.com/",
+    techStack: [
+      "Next.js",
+      "React",
+      "Nest.js",
+      "Typescript",
+      "Tailwind CSS",
+      "PostgreSQL",
+    ] as ValidSkills[],
+    startDate: new Date("2025-06-01"),
+    endDate: new Date("2026-08-01"),
+    companyLogoImg: "/projects/satoon/satoon-cover.png",
+    pagesInfoArr: [
+      {
+        title: "Homepage & Hero",
+        description:
+          "A bold, editorial landing experience with a full-width hero, nationwide delivery messaging, and clear paths into clothing and jewellery collections.",
+        imgArr: ["/projects/satoon/satoon-cover.png"],
+      },
+      {
+        title: "Product Catalogue",
+        description:
+          "A responsive jewellery and clothing grid with sale badges, stock indicators, ratings, and PKR pricing designed for fast browsing across collections.",
+        imgArr: ["/projects/satoon/satoon-2.png"],
+      },
+      {
+        title: "Product Detail Page",
+        description:
+          "Rich product pages with variant selection, discount pricing, reviews, local payment options, and a streamlined add-to-bag flow.",
+        imgArr: ["/projects/satoon/satoon-3.png"],
+      },
+      {
+        title: "Checkout & Social Proof",
+        description:
+          "A conversion-focused journey explaining payment and delivery in three steps, paired with customer testimonials to build trust before purchase.",
+        imgArr: ["/projects/satoon/satoon-4.png"],
+      },
+      {
+        title: "AI Stylist Chat",
+        description:
+          "Noor, an on-site AI stylist, helps shoppers pick gifts, discover new arrivals, and get answers about products and JazzCash payments through a conversational chat experience.",
+        imgArr: ["/projects/satoon/satoon-5.png"],
+      },
+    ],
+    descriptionDetails: {
+      paragraphs: [
+        "SatoonWear is a Pakistani clothing and jewellery boutique built for modern soirées, mehndi nights, and everyday elegance. Codanity delivered a complete e-commerce platform that feels premium while staying practical for local shoppers.",
+        "The storefront combines a polished Next.js frontend with a Nest.js and PostgreSQL backend, supporting product variants, inventory-aware purchasing, order tracking, and payment flows through JazzCash, EasyPaisa, and bank transfer.",
+        "Beyond the core shop experience, we integrated customer support touchpoints like WhatsApp order help and Noor, an on-site AI stylist, to guide shoppers through product discovery, gifting, and checkout with confidence.",
+      ],
+      bullets: [
+        "Developed a responsive e-commerce storefront for clothing and jewellery with curated homepage sections and occasion-based shopping paths.",
+        "Built product detail flows with variant selection, stock awareness, PKR pricing, and local payment method support.",
+        "Implemented customer authentication and account features for order history, delivery tracking, and faster repeat checkout.",
+        "Designed a conversion-focused checkout journey with clear delivery and payment messaging for Pakistani customers.",
+        "Integrated support experiences including WhatsApp order help and an AI stylist chat widget across the site.",
+        "Engineered a scalable full-stack architecture using Next.js, Nest.js, TypeScript, Tailwind CSS, and PostgreSQL.",
+      ],
+    },
+  },
+  {
+    id: "rahmat-al-naseer",
+    companyName: "Rahmat Al-Naseer",
+    type: "Professional",
+    category: ["Full Stack", "Web Dev", "UI/UX"],
+    shortDescription:
+      "Built a purpose-driven charity website to raise awareness for children in need, share news and resources, and drive donations with a clear, trustworthy user experience.",
+    websiteLink: "https://rahmatalnaseer.pk/",
+    techStack: [
+      "Next.js",
+      "React",
+      "Typescript",
+      "Tailwind CSS",
+    ] as ValidSkills[],
+    startDate: new Date("2025-10-01"),
+    endDate: new Date("2026-08-01"),
+    companyLogoImg: "/projects/ran/ran-cover.png",
+    pagesInfoArr: [
+      {
+        title: "Homepage & Hero",
+        description:
+          "An emotional landing experience with Urdu messaging, clear navigation, and prominent donate and join calls to action for supporters.",
+        imgArr: ["/projects/ran/ran-cover.png"],
+      },
+      {
+        title: "Kids in Need",
+        description:
+          "A storytelling section highlighting the scale of child poverty in Pakistan, paired with a visual collage and donation prompt to inspire action.",
+        imgArr: ["/projects/ran/ran-1.png"],
+      },
+      {
+        title: "News & Resources",
+        description:
+          "A content hub for publishing community news, impact stories, and resources with category stats and a responsive article grid.",
+        imgArr: ["/projects/ran/ran-2.png"],
+      },
+    ],
+    descriptionDetails: {
+      paragraphs: [
+        "Rahmat Al-Naseer is a charitable organisation focused on supporting children in need across Pakistan. Codanity built a website that communicates the mission clearly while making it easy for visitors to learn, stay informed, and contribute.",
+        "The platform presents a warm, trustworthy brand experience with sections for awareness, future support programmes, news updates, and community engagement. The design balances emotional storytelling with practical navigation for donors and volunteers.",
+        "Built with Next.js, React, TypeScript, and Tailwind CSS, the site is fast, responsive, and structured to scale as the organisation grows its outreach, content publishing, and donation workflows.",
+      ],
+      bullets: [
+        "Developed a responsive charity website with a mission-led homepage and strong donate and join conversion paths.",
+        "Designed an awareness section that communicates the scale of child poverty in Pakistan with compelling visuals and calls to action.",
+        "Built a news and resources hub for publishing stories, updates, and community content.",
+        "Implemented a clean navigation structure covering about, kids in need, policies, and contact pages.",
+        "Created a polished UI with accessible typography, consistent branding, and mobile-friendly layouts.",
+        "Engineered a scalable frontend architecture using Next.js, React, TypeScript, and Tailwind CSS.",
+      ],
+    },
+  },
+  {
     id: "hero-generation",
     companyName: "HeroGeneration",
     type: "Professional",
     category: ["Full Stack", "Web Dev"],
     shortDescription:
       "Built a collaborative care coordination platform empowering families and caregivers to manage loved ones' health journeys with ease.",
-    websiteLink: "https://herogen.co",
+    websiteLink: "https://www.herogeneration.co/",
     techStack: [
       "Next.js",
       "React",
@@ -48,8 +168,8 @@ export const Projects: ProjectsInterface[] = [
     ],
     descriptionDetails: {
       paragraphs: [
-        "HeroGeneration is a purpose-driven application focused on helping families and caregivers work together in supporting aging loved ones. As a full-stack developer, I helped build the foundation for scalable user workspaces, flexible team collaboration, and a seamless onboarding experience.",
-        "The project uses a robust tech stack with Nest.js and PostgreSQL on the backend, and a clean front-end experience using Next.js, React, and Tailwind CSS. I implemented real-time care updates, profile management, role-based access, and invitation flows using Supabase.",
+        "HeroGeneration is a purpose-driven application focused on helping families and caregivers work together in supporting aging loved ones. Codanity built the foundation for scalable user workspaces, flexible team collaboration, and a seamless onboarding experience.",
+        "The project uses a robust tech stack with Nest.js and PostgreSQL on the backend, and a clean front-end experience using Next.js, React, and Tailwind CSS. We implemented real-time care updates, profile management, role-based access, and invitation flows using Supabase.",
         "This product was designed with accessibility and ease-of-use at the forefront, enabling users of all technical levels to navigate the platform confidently and securely.",
       ],
       bullets: [
@@ -102,7 +222,7 @@ export const Projects: ProjectsInterface[] = [
     ],
     descriptionDetails: {
       paragraphs: [
-        "Leo is an all-in-one transcription and document management platform designed for researchers, archivists, and historians working with historical manuscripts and documents. I helped build this comprehensive solution that makes managing document collections intuitive and efficient through AI-powered technology.",
+        "Leo is an all-in-one transcription and document management platform designed for researchers, archivists, and historians working with historical manuscripts and documents. Codanity built this comprehensive solution to make managing document collections intuitive and efficient through AI-powered technology.",
         "The platform features a three-step workflow: upload documents with customizable metadata, receive AI-generated transcriptions of even the most challenging handwritten texts, and manage the entire collection through an intuitive hub. Users can export their data in various formats including PNG, JPG, PDF, and SRT.",
         "Built with scalability in mind, the platform offers tiered subscription plans from free to professional levels, with varying storage limits and monthly transcription credits to accommodate different user needs. The clean, accessible interface ensures users of all technical abilities can navigate and utilize the powerful features effectively.",
       ],
@@ -178,8 +298,8 @@ export const Projects: ProjectsInterface[] = [
     ],
     descriptionDetails: {
       paragraphs: [
-        "Yritykseni is a comprehensive business management platform designed specifically for Finnish entrepreneurs, with the mission of 'making failure impossible' by removing barriers to success. As a full-stack developer, I helped build an all-in-one solution that centralizes customer management, financial operations, lead tracking, and administrative tasks.",
-        "The application leverages a modern tech stack with Nest.js and PostgreSQL handling the secure backend operations, while Next.js, React, and Tailwind CSS create a clean, intuitive front-end experience. I implemented real-time updates via Socket.io, role-based access control, and AI-powered assistance features to streamline entrepreneur workflows.",
+        "Yritykseni is a comprehensive business management platform designed specifically for Finnish entrepreneurs, with the mission of 'making failure impossible' by removing barriers to success. Codanity built an all-in-one solution that centralizes customer management, financial operations, lead tracking, and administrative tasks.",
+        "The application leverages a modern tech stack with Nest.js and PostgreSQL handling the secure backend operations, while Next.js, React, and Tailwind CSS create a clean, intuitive front-end experience. We implemented real-time updates via Socket.io, role-based access control, and AI-powered assistance features to streamline entrepreneur workflows.",
         "The platform focuses on providing entrepreneurs with a complete business control center, from sales pipeline management to financial oversight, with pricing starting affordably at 1% to make it accessible to solo entrepreneurs and small businesses.",
       ],
       bullets: [
@@ -232,8 +352,8 @@ export const Projects: ProjectsInterface[] = [
     ],
     descriptionDetails: {
       paragraphs: [
-        "HighTicket.io is an education company, focused on helping entrepreneurs build sustainable high-ticket e-commerce businesses through online courses, coaching, and AI-powered technology. As part of their offering, I developed 'Ask Brook', an AI assistant designed to provide expert guidance and answer questions about scaling profitable online stores.",
-        "The 'Ask Brook' application leverages a modern tech stack including Next.js and React for the frontend interface, with Nest.js and PostgreSQL powering the backend. I implemented an assistant-UI framework to create a seamless conversational experience that feels like talking to a real coach.",
+        "HighTicket.io is an education company, focused on helping entrepreneurs build sustainable high-ticket e-commerce businesses through online courses, coaching, and AI-powered technology. Codanity developed 'Ask Brook', an AI assistant designed to provide expert guidance and answer questions about scaling profitable online stores.",
+        "The 'Ask Brook' application leverages a modern tech stack including Next.js and React for the frontend interface, with Nest.js and PostgreSQL powering the backend. We implemented an assistant-UI framework to create a seamless conversational experience that feels like talking to a real coach.",
         "The system combines pre-programmed responses to common questions with dynamic, context-aware answers that address users' unique situations and needs. This dual approach ensures HighTicket's customers receive both reliable foundational information and personalized strategic advice for their specific e-commerce business challenges.",
       ],
       bullets: [
@@ -244,81 +364,6 @@ export const Projects: ProjectsInterface[] = [
         "Implemented contextual awareness that understands various e-commerce concepts and terminology relevant to HighTicket's educational content.",
         "Integrated user profiles to personalize responses and track conversation history for continuous improvement.",
         "Established secure backend architecture using Nest.js and PostgreSQL for data management and user authentication.",
-      ],
-    },
-  },
-  {
-    id: "huble-tracker",
-    companyName: "Huble",
-    type: "Professional",
-    category: ["Full Stack", "Web Dev", "Desktop App"],
-    shortDescription:
-      "Built a modern time tracking and productivity analytics platform enabling teams to monitor work hours, manage projects, and gain insight into application usage patterns.",
-    websiteLink: "https://huble-trakr.vercel.app/",
-    techStack: [
-      "Next.js",
-      "React",
-      "Nest.js",
-      "Typescript",
-      "Electron",
-      "Tailwind CSS",
-      "PostgreSQL",
-    ] as ValidSkills[],
-    startDate: new Date("2024-01-01"),
-    endDate: new Date("2025-04-30"),
-    companyLogoImg: "/projects/huble-tracker/huble-cover.png",
-    pagesInfoArr: [
-      {
-        title: "Time Tracking Dashboard",
-        description:
-          "A detailed timesheet interface that visualizes productivity metrics, tracked time entries, and project breakdowns with activity graphs and summary stats.",
-        imgArr: ["/projects/huble-tracker/huble-1.png"],
-      },
-      {
-        title: "Application Usage Analytics",
-        description:
-          "Insights into application-level usage with precise duration tracking and project tagging to help teams understand time allocation patterns.",
-        imgArr: ["/projects/huble-tracker/huble-2.png"],
-      },
-      {
-        title: "Client Management",
-        description:
-          "A dedicated space for managing clients and projects with support for multiple billing models, budgets, and client profiles.",
-        imgArr: ["/projects/huble-tracker/huble-3.png"],
-      },
-      {
-        title: "User Settings",
-        description:
-          "User-level configuration panel for adjusting tracking preferences, screenshot behavior, notifications, and work hour settings.",
-        imgArr: ["/projects/huble-tracker/huble-4.png"],
-      },
-      {
-        title: "Desktop Time Tracker",
-        description:
-          "Cross-platform desktop app with a clean start/stop interface that allows users to select tasks and track time in real-time.",
-        imgArr: ["/projects/huble-tracker/huble-5.png"],
-      },
-      {
-        title: "Performance Dashboard",
-        description:
-          "Executive overview dashboard with live metrics covering revenue, subscriptions, visitor traffic, and sales performance.",
-        imgArr: ["/projects/huble-tracker/huble-cover.png"],
-      },
-    ],
-    descriptionDetails: {
-      paragraphs: [
-        "Huble Tracker is a productivity-focused platform designed to help distributed teams and freelancers track time, manage projects, and evaluate productivity through real-time analytics. As a full-stack developer, I led development on both the web dashboard and the desktop time tracking app.",
-        "The system was architected with a modern tech stack including Next.js, React, and Tailwind CSS for the frontend, and Nest.js with PostgreSQL for backend services. I also built a cross-platform desktop tracker using Electron, ensuring seamless integration with the main platform.",
-        "The application empowers teams with data-driven insights, enabling better project planning, accurate client billing, and operational efficiency across remote and hybrid work setups.",
-      ],
-      bullets: [
-        "Built a cross-platform desktop application with Electron for time tracking, app usage analysis, and real-time activity scoring.",
-        "Developed an advanced web dashboard for tracking timesheets, project hours, and productivity metrics using Next.js and Tailwind CSS.",
-        "Implemented a scalable client and project management module with flexible billing configurations.",
-        "Engineered precise activity logging with contextual tracking across different apps and work sessions.",
-        "Created a performance dashboard displaying revenue, subscription growth, and real-time visitor data.",
-        "Designed team and member management features with customizable working hours and tracking preferences.",
-        "Integrated privacy-aware screenshot features with options for blurring, frequency control, and alert settings.",
       ],
     },
   },

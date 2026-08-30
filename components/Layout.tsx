@@ -2,23 +2,26 @@ import React, { ReactNode } from "react";
 import { Navbar } from "./Navbar";
 import { navigations, socials, otherNavigations } from "@/data/index";
 import { Footer } from "./Footer";
+import ScrollProgress from "./effects/ScrollProgress";
+import CursorGlow from "./effects/CursorGlow";
+import PageTransition from "./effects/PageTransition";
 
-type Ilayoutprops = {
-    children: ReactNode
-}
+type LayoutProps = {
+  children: ReactNode;
+};
 
-const Layout = ({ children }: Ilayoutprops) => {
-    return (
-      <div className="flex flex-col min-h-screen">
-        <Navbar navigations={navigations}/>
-  
-        <main className="flex-grow pt-8 lg:pt-12">
-          {children}
-        </main>
-        
-        <Footer navigations={navigations} otherNavigations={otherNavigations} socials={socials}/>
+const Layout = ({ children }: LayoutProps) => {
+  return (
+    <div className="relative flex min-h-screen flex-col">
+      <ScrollProgress />
+      <CursorGlow />
+      <Navbar navigations={navigations} />
+      <div className="relative z-[2] flex-grow pt-16 lg:pt-[4.25rem]">
+        <PageTransition>{children}</PageTransition>
       </div>
-    );
-  };
+      <Footer navigations={navigations} otherNavigations={otherNavigations} socials={socials} />
+    </div>
+  );
+};
 
 export default Layout;

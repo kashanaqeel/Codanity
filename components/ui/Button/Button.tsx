@@ -5,52 +5,50 @@ import { useAnimation } from "@/hooks";
 
 export interface ButtonProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "outline";
+  size?: "sm" | "md" | "lg";
   href?: string;
   onClick?: () => void;
   className?: string;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
   external?: boolean;
   icon?: React.ReactNode;
-  iconPosition?: 'left' | 'right';
+  iconPosition?: "left" | "right";
 }
 
 const Button: React.FC<ButtonProps> = ({
   children,
-  variant = 'primary',
-  size = 'md',
+  variant = "primary",
+  size = "md",
   href,
   onClick,
-  className = '',
+  className = "",
   disabled = false,
+  type = "button",
   external = false,
   icon,
-  iconPosition = 'right'
+  iconPosition = "right",
 }) => {
-  const { hoverScale } = useAnimation();
-
-  const baseClasses = "inline-flex items-center justify-center gap-2 font-medium transition-colors duration-200 rounded-lg";
-  
   const variantClasses = {
-    primary: "bg-[#5128a0] hover:bg-[#3e217e] text-white",
-    secondary: "bg-gray-100 hover:bg-gray-200 text-gray-900",
-    outline: "border border-[#5128a0] text-[#5128a0] hover:bg-[#5128a0] hover:text-white"
+    primary: "btn-primary",
+    secondary: "btn-secondary bg-surface-muted text-ink hover:bg-slate-100",
+    outline: "btn-secondary border-brand/25 text-brand hover:border-brand/40 hover:bg-brand-muted",
   };
 
   const sizeClasses = {
-    sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg'
+    sm: "px-4 py-2 text-sm rounded-lg",
+    md: "px-6 py-3 text-sm",
+    lg: "px-7 py-3.5 text-base",
   };
 
-  const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+  const classes = `${variantClasses[variant]} ${sizeClasses[size]} ${disabled ? "pointer-events-none opacity-50" : ""} ${className}`;
 
   const content = (
     <>
-      {icon && iconPosition === 'left' && icon}
+      {icon && iconPosition === "left" && icon}
       {children}
-      {icon && iconPosition === 'right' && icon}
+      {icon && iconPosition === "right" && icon}
     </>
   );
 
@@ -61,16 +59,18 @@ const Button: React.FC<ButtonProps> = ({
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className={`${classes} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-          {...hoverScale}
+          className={classes}
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ type: "spring", stiffness: 400, damping: 28 }}
         >
           {content}
         </motion.a>
       );
     }
-    
+
     return (
-      <motion.div {...hoverScale}>
+      <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} className="inline-flex">
         <Link href={href} className={classes}>
           {content}
         </Link>
@@ -80,10 +80,13 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <motion.button
+      type={type}
       onClick={onClick}
       className={classes}
       disabled={disabled}
-      {...hoverScale}
+      whileHover={{ y: -2 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 400, damping: 28 }}
     >
       {content}
     </motion.button>

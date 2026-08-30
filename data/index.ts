@@ -1,5 +1,6 @@
 import type { Feature } from "@/components/Features/Feature";
 import type { Social, Navigation } from "@/components/Footer/Footer";
+import { Bot, Code, Layers, Smartphone } from "lucide-react";
 
 export const navigations: Navigation[] = [
   {
@@ -27,31 +28,43 @@ export const navigations: Navigation[] = [
 export const features: Feature[] = [
   {
     id: "1",
-    icon: "/icon-nextjs.svg",
-    title: "Next.js Expertise",
+    lucideIcon: Code,
+    title: "Full-Stack Development",
     description:
-      "We build lightning-fast, SEO-optimized web applications with Next.js, ensuring smooth performance and seamless user experience.",
+      "We build end-to-end web applications with Next.js, Nest.js, and PostgreSQL — from architecture and APIs to deployment and performance tuning.",
+    iconBg: "bg-brand-muted",
+    iconColor: "text-brand",
+    iconHoverRing: "group-hover:ring-brand/20 group-hover:bg-brand/10",
   },
   {
     id: "2",
-    icon: "/icon-coding.svg",
-    title: "Full-Stack MERN Development",
+    lucideIcon: Smartphone,
+    title: "Mobile & Web Products",
     description:
-      "Our mastery in MongoDB, Express, React, and Node.js allows us to craft scalable, full-featured web applications tailored to your needs.",
+      "Responsive web apps and cross-platform mobile experiences designed for real users — fast, polished, and built to scale with your business.",
+    iconBg: "bg-indigo-50",
+    iconColor: "text-indigo-600",
+    iconHoverRing: "group-hover:ring-indigo-500/20 group-hover:bg-indigo-100",
   },
   {
     id: "3",
-    icon: "/icon-django.svg",
-    title: "Robust Django Backends",
+    lucideIcon: Layers,
+    title: "UI/UX & Product Design",
     description:
-      "Codanity leverages Django's security and scalability to build dependable backend solutions, perfect for data-intensive applications.",
+      "Thoughtful interfaces and user flows that make complex products feel simple — from wireframes and design systems to pixel-perfect implementation.",
+    iconBg: "bg-slate-100",
+    iconColor: "text-slate-600",
+    iconHoverRing: "group-hover:ring-slate-400/25 group-hover:bg-slate-200/80",
   },
   {
     id: "4",
-    icon: "/icon-mobile-dev.svg",
-    title: "Mobile Development",
+    lucideIcon: Bot,
+    title: "AI & Automation",
     description:
-      "From concept to launch, we develop mobile applications that are performant, user-friendly, and compatible across both iOS and Android platforms.",
+      "When it fits the product, we integrate chatbots, voice agents, RAG knowledge bases, and intelligent workflows — grounded in your data and built for production.",
+    iconBg: "bg-violet-50",
+    iconColor: "text-violet-600",
+    iconHoverRing: "group-hover:ring-violet-500/20 group-hover:bg-violet-100",
   },
 ];
 
@@ -74,12 +87,6 @@ export const socials: Social[] = [
     title: "Instagram",
     url: "https://www.instagram.com/codanityco"
   },
-  // {
-  //   id: "4",
-  //   icon: "/icon-youtube.svg",
-  //   title: "YouTube",
-  //   url: ""
-  // },
 ];
 
 export const navs: Navigation[] = [
@@ -108,7 +115,17 @@ export const navs: Navigation[] = [
 export const otherNavigations: Navigation[] = [
   {
     id: "1",
+    title: "About",
+    url: "/aboutUs",
+  },
+  {
+    id: "2",
     title: "Careers",
-    url: "#",
+    url: "/careers",
+  },
+  {
+    id: "3",
+    title: "Contact",
+    url: "/contacts",
   },
 ];

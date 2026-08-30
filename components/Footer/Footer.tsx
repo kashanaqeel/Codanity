@@ -24,7 +24,7 @@ export interface FooterProps {
 
 export const Footer: FC<FooterProps> = ({ socials, navigations, otherNavigations }) => {
   return (
-    <footer className="bg-[#1f2937] text-white">
+    <footer className="bg-footer-gradient text-white">
       <DesktopFooter
         socials={socials}
         navigations={navigations}
@@ -39,14 +39,13 @@ export const Footer: FC<FooterProps> = ({ socials, navigations, otherNavigations
   );
 };
 
-// Logo component
 export const Logo: FC = () => (
   <div className="flex items-center">
     <Image
       src="/codanity-logo-white.svg"
       alt="Codanity Logo"
-      width={120}
-      height={32}
+      width={130}
+      height={34}
       className="h-8 w-auto"
     />
   </div>

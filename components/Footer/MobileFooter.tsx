@@ -11,32 +11,34 @@ export const MobileFooter: FC<FooterProps> = ({
   otherNavigations,
 }) => {
   return (
-    <div className="lg:hidden py-12 px-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Logo and Description */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
+    <div className="px-4 py-12 lg:hidden">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-8 text-center">
+          <div className="mb-4 flex justify-center">
             <Logo />
           </div>
-          <p className="text-gray-300 max-w-md mx-auto px-4">
-            We build innovative digital solutions that help businesses grow and succeed in the digital age.
+          <p className="mx-auto max-w-md px-4 text-sm leading-relaxed text-slate-400">
+            Codanity builds innovative digital products that help businesses grow, scale, and succeed
+            in a fast-moving digital world.
           </p>
         </div>
 
-        {/* Navigation Links */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8 px-4">
+        <div className="mb-8 grid grid-cols-1 gap-8 px-4 sm:grid-cols-2">
           <div className="text-center sm:text-left">
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="font-display text-sm font-semibold uppercase tracking-wider text-white">
+              Quick Links
+            </h3>
             <NavigationLinks navigations={navigations} />
           </div>
           <div className="text-center sm:text-left">
-            <h3 className="text-lg font-semibold mb-4">Company</h3>
+            <h3 className="font-display text-sm font-semibold uppercase tracking-wider text-white">
+              Company
+            </h3>
             <NavigationLinks navigations={otherNavigations} />
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="pt-8 border-t border-gray-700 flex flex-col items-center space-y-4 px-4">
+        <div className="flex flex-col items-center space-y-4 border-t border-white/10 px-4 pt-8">
           <SocialProfiles socials={socials} />
           <Copyright />
         </div>

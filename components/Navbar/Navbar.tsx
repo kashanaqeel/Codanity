@@ -1,8 +1,10 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useRouter } from "next/router";
+import { AnimatePresence, motion } from "framer-motion";
 import { NavigationLinksDesktop, NavigationLinksMobile } from "./NavigationLinks";
+import { Button } from "@/components";
 
 export type Navigation = {
   id: string;
@@ -16,88 +18,88 @@ export interface NavbarProps {
 
 export const Navbar: FC<NavbarProps> = ({ navigations }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const router = useRouter();
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [router.pathname]);
 
   return (
-    <nav className="bg-white fixed w-full top-0 z-50 border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
-            <Image src="/codanity-logo-purple.svg" alt="logo" height={32} width={32} />
-            <span className="text-2xl font-bold font-mono text-[#5128a0]">Codanity</span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <NavigationLinksDesktop navigations={navigations} />
-            <Link
-              href="/contacts"
-              className="bg-[#5128a0] text-white px-6 py-2 rounded-lg hover:bg-[#3e217e] transition-colors"
-            >
-              Contact
+    <header className="fixed top-0 z-50 w-full">
+      <nav
+        className={`transition-all duration-300 ease-smooth ${
+          scrolled ? "glass-nav-scrolled backdrop-blur-xl" : "glass-nav"
+        }`}
+      >
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between lg:h-[4.25rem]">
+            <Link href="/" className="group flex items-center gap-3">
+              <Image
+                src="/codanity-logo-purple.svg"
+                alt="Codanity logo"
+                height={34}
+                width={34}
+                className="transition-transform duration-300 group-hover:scale-105"
+              />
+              <span className="font-display text-xl font-bold tracking-tight text-brand lg:text-2xl">
+                Codanity
+              </span>
             </Link>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={toggleMenu}
-            className="md:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#5128a0]"
-          >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+            <div className="hidden items-center gap-8 md:flex">
+              <NavigationLinksDesktop navigations={navigations} />
+              <Button href="/contacts" variant="primary" size="sm">
+                Let&apos;s Talk
+              </Button>
+            </div>
+
+            <button
+              onClick={() => setIsOpen((open) => !open)}
+              className="rounded-xl p-2 text-ink-secondary transition-colors hover:bg-surface-muted hover:text-ink md:hidden"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
             >
-              {isOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {isOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md:hidden absolute top-16 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40"
-          >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <NavigationLinksMobile 
-                navigations={navigations} 
-                onLinkClick={() => setIsOpen(false)}
-              />
-              <div className="pt-4">
-                <Link
-                  href="/contacts"
-                  onClick={() => setIsOpen(false)}
-                  className="block w-full text-center bg-[#5128a0] text-white px-6 py-2 rounded-lg hover:bg-[#3e217e] transition-colors"
-                >
-                  Contact
-                </Link>
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden border-t border-slate-200/80 bg-white/95 backdrop-blur-xl md:hidden"
+            >
+              <div className="space-y-4 px-4 py-5">
+                <NavigationLinksMobile
+                  navigations={navigations}
+                  onLinkClick={() => setIsOpen(false)}
+                />
+                <Button href="/contacts" variant="primary" size="md" className="w-full">
+                  Let&apos;s Talk
+                </Button>
               </div>
-            </div>
-          </motion.div>
-        )}
-      </div>
-    </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </header>
   );
 };

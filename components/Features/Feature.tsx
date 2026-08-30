@@ -1,13 +1,16 @@
 import React, { FC } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { useAnimation } from "@/hooks";
+import type { LucideIcon } from "lucide-react";
 
 export interface Feature {
   id: string;
-  icon: string;
+  icon?: string;
+  lucideIcon?: LucideIcon;
   title: string;
   description: string;
+  iconBg?: string;
+  iconColor?: string;
+  iconHoverRing?: string;
 }
 
 export interface FeatureProps {
@@ -15,70 +18,41 @@ export interface FeatureProps {
   index?: number;
 }
 
-export const Feature: FC<FeatureProps> = ({ feature, index = 0 }) => {
-  const { hoverScale } = useAnimation();
+export const Feature: FC<FeatureProps> = ({ feature }) => {
+  const LucideIcon = feature.lucideIcon;
+
+  const iconBg = feature.iconBg ?? "bg-brand-muted";
+  const iconColor = feature.iconColor ?? "text-brand";
+  const iconHoverRing =
+    feature.iconHoverRing ?? "group-hover:ring-brand/20 group-hover:bg-brand/10";
 
   return (
-    <motion.div 
-      className="flex flex-col items-center lg:items-start gap-4 p-6 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-300 group"
-      whileHover={{ y: -5 }}
-      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-    >
-      {/* Enhanced Icon Container */}
-      <motion.div 
-        className="relative p-4 bg-gradient-to-br from-[#5128a0]/10 to-blue-500/10 rounded-2xl group-hover:from-[#5128a0]/20 group-hover:to-blue-500/20 transition-all duration-300"
-        {...hoverScale}
-        whileHover={{ 
-          rotate: [0, -5, 5, 0],
-          transition: { duration: 0.6, ease: "easeInOut" }
-        }}
+    <div className="card-surface group relative h-full overflow-hidden p-6 lg:p-7">
+      <div
+        className={`relative mb-5 inline-flex rounded-2xl p-4 ring-1 ring-transparent transition-all duration-300 ${iconBg} ${iconHoverRing}`}
       >
-        <Image 
-          src={feature.icon} 
-          alt={feature.title} 
-          height={56} 
-          width={56}
-          className="group-hover:scale-110 transition-transform duration-300"
-        />
-        {/* Decorative ring */}
-        <motion.div 
-          className="absolute inset-0 rounded-2xl border-2 border-[#5128a0]/20 group-hover:border-[#5128a0]/40 transition-colors duration-300"
-          animate={{ 
-            rotate: [0, 360],
-            scale: [1, 1.05, 1]
-          }}
-          transition={{ 
-            duration: 8 + index * 2, 
-            repeat: Infinity, 
-            ease: "linear" 
-          }}
-        />
-      </motion.div>
-      
-      {/* Enhanced Title */}
-      <motion.h3 
-        className="text-xl font-bold text-gray-900 text-center lg:text-start group-hover:text-[#5128a0] transition-colors duration-300"
-        whileHover={{ scale: 1.02 }}
-        transition={{ duration: 0.2 }}
-      >
+        {LucideIcon ? (
+          <LucideIcon
+            className={`h-8 w-8 transition-transform duration-300 group-hover:scale-105 ${iconColor}`}
+          />
+        ) : feature.icon ? (
+          <Image
+            src={feature.icon}
+            alt={feature.title}
+            height={48}
+            width={48}
+            className="transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : null}
+      </div>
+
+      <h3 className="relative font-display text-xl font-semibold text-ink transition-colors duration-300 group-hover:text-brand">
         {feature.title}
-      </motion.h3>
-      
-      {/* Enhanced Description */}
-      <motion.p 
-        className="text-sm text-gray-600 text-center lg:text-start leading-relaxed group-hover:text-gray-800 transition-colors duration-300"
-        whileHover={{ scale: 1.01 }}
-        transition={{ duration: 0.2 }}
-      >
-        {feature.description}
-      </motion.p>
-      
-      {/* Hover indicator */}
-      <motion.div 
-        className="w-0 group-hover:w-full h-0.5 bg-gradient-to-r from-[#5128a0] to-blue-500 rounded-full transition-all duration-300"
-        initial={{ width: 0 }}
-        whileHover={{ width: "100%" }}
-      />
-    </motion.div>
+      </h3>
+
+      <p className="relative mt-3 text-sm leading-relaxed text-ink-secondary">{feature.description}</p>
+
+      <div className="relative mt-5 h-0.5 w-0 rounded-full bg-brand transition-all duration-500 group-hover:w-full" />
+    </div>
   );
 };
