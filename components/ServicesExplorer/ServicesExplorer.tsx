@@ -45,7 +45,7 @@ export const ServicesExplorer: React.FC<ServicesExplorerProps> = ({
       <div className="relative">
         <div className="absolute left-0 top-0 z-10 hidden h-full w-8 bg-gradient-to-r from-surface-subtle to-transparent sm:block" />
         <div className="absolute right-0 top-0 z-10 hidden h-full w-8 bg-gradient-to-l from-surface-subtle to-transparent sm:block" />
-        <div className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex gap-2 overflow-x-auto py-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {services.map((service) => {
             const Icon = service.icon;
             const isActive = service.id === activeId;
@@ -54,12 +54,11 @@ export const ServicesExplorer: React.FC<ServicesExplorerProps> = ({
                 key={service.id}
                 type="button"
                 onClick={() => onSelect(service.id)}
-                whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 className={`flex shrink-0 items-center gap-2.5 rounded-2xl border px-3 py-2.5 transition-all duration-300 sm:px-4 ${
                   isActive
                     ? "border-brand/40 bg-white shadow-card"
-                    : "border-slate-200/70 bg-white/60 hover:border-brand/20 hover:bg-white"
+                    : "border-slate-200/70 bg-white/60 hover:border-brand/20 hover:bg-white hover:shadow-soft"
                 }`}
               >
                 <div

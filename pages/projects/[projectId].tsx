@@ -16,7 +16,6 @@ import { Projects } from "@/config/projects";
 import ProjectShowcase from "@/components/ProjectShowcase";
 import HomeCTA from "@/components/HomeCTA";
 import { Button } from "@/components";
-import { getProjectTypeColor } from "@/utils";
 import { useAnimation } from "@/hooks";
 import HeroBackdrop from "@/components/effects/HeroBackdrop";
 
@@ -78,9 +77,6 @@ export default function ProjectDetailPage() {
           <div className="mt-6 grid min-w-0 gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-10">
             <motion.div className="min-w-0 space-y-4 sm:space-y-5" {...fadeInUp(0.05)}>
               <div className="flex flex-wrap gap-2">
-                <span className={`rounded-full px-3 py-1 text-xs font-semibold ${getProjectTypeColor(project.type)}`}>
-                  {project.type}
-                </span>
                 {project.category.map((cat) => (
                   <span
                     key={cat}
